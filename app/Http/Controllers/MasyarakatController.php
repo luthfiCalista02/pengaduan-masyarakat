@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
+use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 
 class MasyarakatController extends Controller
@@ -11,9 +12,9 @@ class MasyarakatController extends Controller
     {
         return view(view: 'masyarakat.planding_masyarakat');
     }
+
     public function beranda_masyarakat()
     {
-        $pengaduan = Pengaduan::all();
         return view('masyarakat.beranda_masyarakat');
     }
 
@@ -36,5 +37,4 @@ class MasyarakatController extends Controller
     {
         return view('masyarakat.edit_profil');
     }
-
 }

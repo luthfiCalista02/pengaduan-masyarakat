@@ -11,5 +11,14 @@ class Pengaduan extends Model
 
     protected $table = 'pengaduan'; // Nama tabel di database
 
-    protected $fillable = ['id_pengaduan', 'nama_masyarakat', 'nik', 'judul_pengaduan', 'isi_pengaduan', 'waktu', 'lokasi', 'lampiran', 'status']; // Kolom yang diperbolehkan mass assignment
+    protected $fillable = [
+        'nama_masyarakat',
+        'nik',
+        'judul_pengaduan',
+        'isi_pengaduan',
+        'waktu',
+        'lokasi',
+        'foto',
+        'status',
+    ];
 }

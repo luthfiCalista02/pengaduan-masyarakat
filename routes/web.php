@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PengaduanController;
 
 // Home
 Route::get('/register', [HomeController::class, 'register'])->name('register');
+Route::post('/register', [HomeController::class, 'proses_register'])->name('register.post');
+
 Route::get('/login', [HomeController::class, 'login'])->name('login');
+
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::middleware(['auth'])->group(function () {
     Route::delete('/hapus-akun/{id}', [AuthController::class, 'destroy_acc'])->name('akun.hapus');
@@ -21,8 +25,6 @@ Route::get('/riwayat_masyarakat', [MasyarakatController::class, 'riwayat_masyara
 Route::get('/detail_riwayat', [MasyarakatController::class, 'detail_riwayat'])->name('detail_riwayat');
 Route::get('/profil_masyarakat', [MasyarakatController::class, 'profil_masyarakat'])->name('profil_masyarakat');
 Route::get('/edit_profil', [MasyarakatController::class, 'edit_profil'])->name('edit_profil');
-
-Route::post('/store_pengaduan', [MasyarakatController::class, 'store_pengaduan'])->name('store_pengaduan');
 
 // Pegawai
 

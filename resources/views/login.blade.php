@@ -24,7 +24,7 @@
     <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md" style="background-color: #FFF0DC;">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Masuk</h2>
       <form action="#" method="POST" class="space-y-4">
-
+        @csrf
         <div>
           <label for="login" class="block text-sm font-medium text-gray-700">Nama</label>
           <input type="text" id="login" name="nama_masyarakat" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
@@ -32,8 +32,8 @@
 
         <!-- Email / No. Telp / Username -->
         <div>
-          <label for="login" class="block text-sm font-medium text-gray-700">NIK</label>
-          <input type="number" id="login" name="nik" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <label for="login" class="block text-sm font-medium text-gray-700">NIK</label>
+            <input type="number" id="login" name="nik" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Kata Sandi -->

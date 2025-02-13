@@ -66,56 +66,56 @@
             <p class="text-green-500 text-center">{{ session('success') }}</p>
         @endif
 
-        <form action="{{ route('store_pengaduan') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
 
             <!-- Nama Masyarakat -->
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
                 <input type="text" id="nama" name="nama_masyarakat" placeholder="Masukkan Nama" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- NIK -->
             <div>
                 <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
                 <input type="number" id="nik" name="nik" required minlength="16" maxlength="16" placeholder="Masukkan NIK" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Judul Pengaduan -->
             <div>
                 <label for="judul" class="block text-sm font-medium text-gray-700">Judul Pengaduan</label>
                 <input type="text" id="judul" name="judul_pengaduan" placeholder="Isi Judul Pengaduan" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Isi Pengaduan -->
             <div>
                 <label for="isi" class="block text-sm font-medium text-gray-700">Isi Pengaduan</label>
                 <textarea id="isi" name="isi_pengaduan" rows="4" placeholder="Isi Pengaduan Anda" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off"></textarea>
             </div>
 
             <!-- Waktu Kejadian -->
             <div>
                 <label for="waktu" class="block text-sm font-medium text-gray-700">Waktu Kejadian</label>
                 <input type="datetime-local" id="waktu" name="waktu" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Lokasi Kejadian -->
             <div>
                 <label for="lokasi" class="block text-sm font-medium text-gray-700">Lokasi Kejadian</label>
                 <input type="text" id="lokasi" name="lokasi" placeholder="Masukkan Lokasi Kejadian" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Lampiran Pengaduan -->
             <div>
                 <label for="lampiran" class="block text-sm font-medium text-gray-700">Lampiran (Opsional)</label>
-                <input type="file" id="lampiran" name="lampiran" accept="image/*,application/pdf" 
-                    class="bg-white mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <input type="file" id="lampiran" name="foto" accept="image/*,application/pdf"
+                    class="bg-white mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Submit Button -->

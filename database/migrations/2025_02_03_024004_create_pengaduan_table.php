@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('isi_pengaduan');
             $table->date('waktu');
             $table->text('lokasi');
-            $table->string('lampiran')->nullable(); // Bisa null jika tidak ada lampiran
+            $table->string('foto')->nullable(); // Bisa null jika tidak ada lampiran
             $table->enum('status', ['menunggu', 'proses', 'selesai'])->default('menunggu');
             $table->timestamps();
 
