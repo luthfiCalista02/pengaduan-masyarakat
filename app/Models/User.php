@@ -18,7 +18,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nik',
+        'nama_masyarakat',
+        'alamat',
+        'tgl_lahir',
+        'jenis_kelamin',
+        'tlp',
         'email',
         'password',
     ];
@@ -45,4 +50,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected $table = 'masyarakat';
 }
