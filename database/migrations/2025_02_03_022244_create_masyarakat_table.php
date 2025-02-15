@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('masyarakat', function (Blueprint $table) {
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->string('nama_masyarakat');
             $table->text('alamat');
             $table->date('tgl_lahir');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tlp');
             $table->string('email');
             $table->string('password');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

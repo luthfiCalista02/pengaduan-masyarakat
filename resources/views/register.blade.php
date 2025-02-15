@@ -28,7 +28,7 @@
         <p>{{ Session::get('warning') }}</p>
       </div>
       @endif
-      <form action="{{ route('register') }}" method="POST" class="space-y-4">
+      <form action="{{ route('register.post') }}" method="POST" class="space-y-4">
         @csrf
 
         <!-- NIK -->

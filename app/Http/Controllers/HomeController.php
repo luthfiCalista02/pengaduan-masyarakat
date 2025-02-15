@@ -15,35 +15,32 @@ class HomeController extends Controller
         return view('register');
     }
 
-    public function proses_register(Request $request)
-    {
+    public function prosesdaftar(Request $request) {
         $request->validate([
-            'nik'               => 'required|unique:masyarakat,nik',
-            'nama_masyarakat'   => 'required',
-            'alamat'            => 'required',
-            'tgl_lahir'         => 'required',
-            'jenis_kelamin'     => 'required',
-            'tlp'               => 'required',
-            'email'             => 'required',
-            'password'          => 'required',
+            'nik'             => 'required|unique:masyarakat,nik',
+            'nama_masyarakat' => 'required',
+            'alamat'          => 'required',
+            'tgl_lahir'       => 'required',
+            'jenis_kelamin'   => 'required',
+            'tlp'             => 'required',
+            'email'           => 'required',
+            'password'        => 'required',
         ]);
 
-        // Simpan ke database
         $dataMasyarakat = [
-            'nik' => $request->nik,
-            'nama_masyarakat' => $request->nama_masyarakat,
-            'alamat' => $request->alamat,
-            'tgl_lahir' => $request->tgl_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'tlp' => $request->tlp,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'nik'               => $request->nik,
+            'nama_masyarakat'   => $request->nama_masyarakat,
+            'alamat'            => $request->alamat,
+            'tgl_lahir'         => $request->tgl_lahir,
+            'jenis_kelamin'     => $request->jenis_kelamin,
+            'tlp'               => $request->tlp,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
         ];
 
         Masyarakat::create($dataMasyarakat);
-        return redirect()->route('login')->with('success', 'Pendaftaran berhasil!');
+        return redirect('/login')->with('success', 'Pendaftaran Berhasil!');
     }
-
 
     // Login // Login //Login //Login
     public function login()

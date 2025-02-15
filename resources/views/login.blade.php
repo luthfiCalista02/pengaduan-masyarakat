@@ -43,7 +43,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full text-white p-2 rounded-md font-medium" style="background-color: #435585;">Masuk</button>
+        <a href="{{ route('beranda_masyarakat') }}" type="submit" class="w-full text-white p-2 rounded-md font-medium mt-5 block text-center" style="background-color: #435585;">Masuk</a>
       </form>
 
       <!-- Link to Register -->

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pengaduan extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'pengaduan'; // Nama tabel di database
 
@@ -19,6 +21,6 @@ class Pengaduan extends Model
         'waktu',
         'lokasi',
         'foto',
-        'status',
+        'status'
     ];
 }

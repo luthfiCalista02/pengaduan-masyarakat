@@ -66,13 +66,13 @@
             <p class="text-green-500 text-center">{{ session('success') }}</p>
         @endif
 
-        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="{{ route('pengaduan.post') }}" method="POST" enctype="multipart/form-data" class="space-y-4" autocomplete="off" novalidate>
             @csrf
 
             <!-- Nama Masyarakat -->
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                <input type="text" id="nama" name="nama_masyarakat" placeholder="Masukkan Nama" required
+                <input type="text" id="nama_masyarakat" name="nama_masyarakat" placeholder="Masukkan Nama" required
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
@@ -86,14 +86,14 @@
             <!-- Judul Pengaduan -->
             <div>
                 <label for="judul" class="block text-sm font-medium text-gray-700">Judul Pengaduan</label>
-                <input type="text" id="judul" name="judul_pengaduan" placeholder="Isi Judul Pengaduan" required
+                <input type="text" id="judul_pengaduan" name="judul_pengaduan" placeholder="Isi Judul Pengaduan" required
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Isi Pengaduan -->
             <div>
                 <label for="isi" class="block text-sm font-medium text-gray-700">Isi Pengaduan</label>
-                <textarea id="isi" name="isi_pengaduan" rows="4" placeholder="Isi Pengaduan Anda" required
+                <textarea id="isi_pengaduan" name="isi_pengaduan" rows="4" placeholder="Isi Pengaduan Anda" required
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off"></textarea>
             </div>
 
@@ -114,7 +114,7 @@
             <!-- Lampiran Pengaduan -->
             <div>
                 <label for="lampiran" class="block text-sm font-medium text-gray-700">Lampiran (Opsional)</label>
-                <input type="file" id="lampiran" name="foto" accept="image/*,application/pdf"
+                <input type="file" id="foto" name="foto" accept="image/*,application/pdf"
                     class="bg-white mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 

@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id('id_pengaduan');
             $table->string('nama_masyarakat');
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->string('judul_pengaduan');
             $table->text('isi_pengaduan');
             $table->date('waktu');
             $table->text('lokasi');
             $table->string('foto')->nullable(); // Bisa null jika tidak ada lampiran
             $table->enum('status', ['menunggu', 'proses', 'selesai'])->default('menunggu');
+            $table->softDeletes();
             $table->timestamps();
 
             // Foreign key untuk nik

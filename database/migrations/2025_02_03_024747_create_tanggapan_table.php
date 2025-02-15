@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pengaduan');
             $table->date('waktu');
             $table->text('tanggapan');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

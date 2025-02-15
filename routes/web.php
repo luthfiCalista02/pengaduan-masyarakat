@@ -9,7 +9,7 @@ use App\Http\Controllers\PengaduanController;
 
 // Home
 Route::get('/register', [HomeController::class, 'register'])->name('register');
-Route::post('/register', [HomeController::class, 'proses_register'])->name('register.post');
+Route::post('/prosesdaftar', [HomeController::class, 'prosesdaftar'])->name('register.post');
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 
@@ -21,6 +21,9 @@ Route::middleware(['auth'])->group(function () {
 // Masyarakat
 Route::get('/', [MasyarakatController::class, 'page_landing'])->name('page_landing');
 Route::get('/beranda_masyarakat', [MasyarakatController::class, 'beranda_masyarakat'])->name('beranda_masyarakat');
+Route::post('/prosespengaduan', [MasyarakatController::class, 'prosespengaduan'])->name('pengaduan.post');
+
+
 Route::get('/riwayat_masyarakat', [MasyarakatController::class, 'riwayat_masyarakat'])->name('riwayat_masyarakat');
 Route::get('/detail_riwayat', [MasyarakatController::class, 'detail_riwayat'])->name('detail_riwayat');
 Route::get('/profil_masyarakat', [MasyarakatController::class, 'profil_masyarakat'])->name('profil_masyarakat');
