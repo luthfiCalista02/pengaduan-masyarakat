@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Material Dashboard 3 - v3.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,14 +20,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
   <link id="pagestyle" href="assetss/assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+
+  <!-- Sweet Alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="img/logreg_image.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+        <img src="{{ asset('img/logreg_image.png') }}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
         <span class="ms-1 text-sm text-white">Pengaduan Masyarakat</span>
       </a>
     </div>
@@ -61,21 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_admin') }}">
-              <i class="material-symbols-rounded text-white">shield_person</i>
-              <span class="nav-link-text ms-1 text-white">Akun Admin</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_petugas') }}">
-              <i class="material-symbols-rounded text-white">person_edit</i>
-              <span class="nav-link-text ms-1 text-white">Akun Petugas</span>
+            <a class="nav-link active text-dark" href="{{ route('akun_pegawai') }}" style="background-color: #FFF0DC;">
+              <i class="material-symbols-rounded" style="color: #435585;">shield_person</i>
+              <span class="nav-link-text ms-1" style="color: #435585;">Akun Pegawai</span>
             </a>
         </li>
         <li class="nav-item">
@@ -85,75 +65,108 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active text-dark" href="{{ route('generate_laporan') }}" style="background-color: #FFF0DC;">
-              <i class="material-symbols-rounded" style="color: #435585;">print</i>
-              <span class="nav-link-text ms-1" style="color: #435585;">Generate Laporan</span>
+            <a class="nav-link text-dark" href="{{ route('generate_laporan') }}">
+              <i class="material-symbols-rounded text-white">print</i>
+              <span class="nav-link-text ms-1 text-white">Generate Laporan</span>
             </a>
         </li>
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a class="btn w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
+            <a href="#" onclick="confirmLogout()" class="btn w-100 btn-getstarted" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
                 <i class="material-symbols-rounded" style="color: #435585;">logout</i>
                 Keluar
             </a>
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
-      <div class="container-fluid py-1 px-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Generate Laporan</li>
-          </ol>
-        </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-              <label class="form-label">Type hereassetss.</label>
-              <input type="text" class="form-control">
-            </div>
-          </div>
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tambah Akun Pegawai</li>
+            </ol>
+          </nav>
         </div>
-      </div>
     </nav>
     <!-- End Navbar -->
+
+    <!-- COntent -->
     <section id="pengaduan-masyarakat" class="container mt-4">
-        <a href="{{ route('tabel_pengaduan') }}" class="btn btn-warning mb-3">Kembali</a>
-        <div class="card">
-            <div class="card-header text-white" style="background-color: #435585;">Pengaduan Masyarakat</div>
+        <a href="{{ route('akun_pegawai') }}" class="btn btn-warning mb-3">Kembali</a>
+        <div class="card w-50">
+            <div class="card-header text-white" style="background-color: #435585;">Tambah Akun Pegawai</div>
             <div class="card-body">
-                <div style="margin-bottom: 15px;">
-                    <label for="namaAdmin" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Admin</label>
-                    <input type="text" id="namaAdmin" placeholder="Masukkan nama"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                @if (Session::get('warning'))
+                <div class="alert alert-warning">
+                    <p>{{ Session::get('warning') }}</p>
                 </div>
+                @endif
+                <form action="{{ route('pegawai.post') }}" method="POST" class="space-y-4">
+                @csrf
+                    <div style="margin-bottom: 15px;">
+                        <label for="namaAdmin" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Pegawai</label>
+                        <input type="text" id="namaAdmin" name="nama_pegawai" placeholder="Masukkan Nama Pegawai"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('nama_pegawai') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" placeholder="Masukkan email"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan Email"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('email') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi</label>
-                        <input type="password" id="password" placeholder="Masukkan kata sandi"
-                               style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">                        <i id="eye-icon" class="fa fa-eye"></i>
-                        </button>
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="level" style="display: block; font-weight: bold; margin-bottom: 5px;">Peran</label>
+                        <select id="level" name="level" required
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('level') }}">
+                            <option value="" disabled selected>Pilih Peran</option>
+                            <option value="admin">Admin</option>
+                            <option value="petugas">Petugas</option>
+                        </select>
+                    </div>
 
-                <div style="text-align: right;">
-                    <button style="padding: 10px 20px; background: #e91e63; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                        Simpan
-                    </button>
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi</label>
+                            <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi"
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('password') }}">
+                                <i id="eye-icon" class="fa fa-eye"></i>
+                            </button>
+                    </div>
+
+                    <div style="text-align: right;">
+                        <button class="btn btn-info mb-3">Tambah</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
+    <!-- End Content -->
+
+    <!-- JavaScript untuk toggle password -->
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash"); // Ikon berubah ke 'mata tertutup'
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye"); // Ikon kembali ke 'mata terbuka'
+            }
+        }
+    </script>
+
   </main>
   <!--   Core JS Files   -->
   <script src="assetss/assets/js/core/popper.min.js"></script>
@@ -407,6 +420,26 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assetss/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+
+  <script>
+    function confirmLogout() {
+      Swal.fire({
+        title: "Yakin ingin keluar?",
+        text: "Anda akan logout dari sistem.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, Logout",
+        cancelButtonText: "Batal"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ route('logout') }}"; // Ganti dengan route logout yang benar
+        }
+      });
+    }
+  </script>
+
 </body>
 
 </html>

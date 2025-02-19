@@ -61,7 +61,6 @@
   <main class="main mt-40">
     <div class="shadow rounded-xl p-8 w-full max-w-2xl mx-auto mt-40 bg-white">
         <h2 class="text-2xl font-bold text-center text-gray-800 mb-4" style="color: #435585;">Form Pengaduan</h2>
-
         @if(session('success'))
             <p class="text-green-500 text-center">{{ session('success') }}</p>
         @endif

@@ -4,22 +4,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="assetss/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assetss/assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assetss/assets/img/apple-icon.png') }}">
+  <link rel="icon" type="image/png" href="{{ asset('assetss/assets/img/favicon.png') }}">
   <title>
     Pengaduan Masyarakat
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <!-- Nucleo Icons -->
-  <link href="assetss/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="assetss/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{ asset('assetss/assets/css/nucleo-icons.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assetss/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="assetss/assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('assetss/assets/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
 
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -27,11 +27,13 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="img/logreg_image.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+        <img src="{{ asset('img/logreg_image.png') }}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
         <span class="ms-1 text-sm text-white">Pengaduan Masyarakat</span>
       </a>
     </div>
@@ -51,21 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active text-dark" href="{{ route('akun_admin') }}" style="background-color: #FFF0DC;">
+            <a class="nav-link active text-dark" href="{{ route('akun_pegawai') }}" style="background-color: #FFF0DC;">
               <i class="material-symbols-rounded" style="color: #435585;">shield_person</i>
-              <span class="nav-link-text ms-1" style="color: #435585;">Akun Admin</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_petugas') }}">
-              <i class="material-symbols-rounded text-white">person_edit</i>
-              <span class="nav-link-text ms-1 text-white">Akun Petugas</span>
+              <span class="nav-link-text ms-1" style="color: #435585;">Akun Pegawai</span>
             </a>
         </li>
         <li class="nav-item">
@@ -91,6 +81,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -98,42 +90,67 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
               <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Akun Admin</li>
+              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tambah Akun Pegawai</li>
             </ol>
           </nav>
         </div>
     </nav>
     <!-- End Navbar -->
+
+    <!-- COntent -->
     <section id="pengaduan-masyarakat" class="container mt-4">
-        <a href="{{ route('akun_admin') }}" class="btn btn-warning mb-3">Kembali</a>
+        <a href="{{ route('akun_pegawai') }}" class="btn btn-warning mb-3">Kembali</a>
         <div class="card w-50">
-            <div class="card-header text-white" style="background-color: #435585;">Edit Akun Admin</div>
+            <div class="card-header text-white" style="background-color: #435585;">Edit Akun Pegawai</div>
             <div class="card-body">
-                <div style="margin-bottom: 15px;">
-                    <label for="namaAdmin" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Admin</label>
-                    <input type="text" id="namaAdmin" placeholder="Masukkan Nama Admin"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                @if (Session::get('warning'))
+                <div class="alert alert-warning">
+                    <p>{{ Session::get('warning') }}</p>
                 </div>
+                @endif
+                <form action="{{ route('pegawai.update', $pegawai->id_pegawai) }}" method="POST" class="space-y-4">
+                    @csrf
 
-                <div style="margin-bottom: 15px;">
-                    <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" placeholder="Masukkan Email"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <input type="hidden" name="id_pegawai" value="{{ $pegawai->id_pegawai }}">
 
-                <div style="margin-bottom: 15px;">
-                    <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi</label>
-                        <input type="password" id="password" placeholder="Masukkan Kata Sandi"
-                               style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">                        <i id="eye-icon" class="fa fa-eye"></i>
-                        </button>
-                </div>
+                        <div style="margin-bottom: 15px;">
+                            <label for="namaAdmin" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Pegawai</label>
+                            <input type="text" id="namaAdmin" name="nama_pegawai"
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ $pegawai->nama_pegawai }}" required>
+                        </div>
 
-                <div style="text-align: right;">
-                    <button class="btn btn-info mb-3">Simpan</button>
-                </div>
+                        <div style="margin-bottom: 15px;">
+                            <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
+                            <input type="email" id="email" name="email"
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ $pegawai->email }}" required>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label for="level" style="display: block; font-weight: bold; margin-bottom: 5px;">Peran</label>
+                            <select id="level" name="level" required
+                                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('level') }}">
+                                <option value="" disabled selected>Pilih Peran</option>
+                                <option value="admin" {{ $pegawai->level == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="petugas" {{ $pegawai->level == 'petugas' ? 'selected' : '' }}>Petugas</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi (Opsional) Isi Bila Ingin Perbarui Kata Sandi</label>
+                                <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi"
+                                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('password') }}">
+                                    <i id="eye-icon" class="fa fa-eye"></i>
+                                </button>
+                        </div>
+
+                        <div style="text-align: right;">
+                            <button class="btn btn-info mb-3">Tambah</button>
+                        </div>
+                </form>
             </div>
         </div>
     </section>
+    <!-- End Content -->
 
     <!-- JavaScript untuk toggle password -->
     <script>
@@ -155,11 +172,11 @@
 
   </main>
   <!--   Core JS Files   -->
-  <script src="assetss/assets/js/core/popper.min.js"></script>
-  <script src="assetss/assets/js/core/bootstrap.min.js"></script>
-  <script src="assetss/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="assetss/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="assetss/assets/js/plugins/chartjs.min.js"></script>
+  <script src="{{ asset('assetss/assets/js/core/popper.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/core/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/plugins/chartjs.min.js') }}"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -405,7 +422,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assetss/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+  <script src="{{ asset('assetss/assets/js/material-dashboard.min.js?v=3.2.0') }}"></script>
 
   <script>
     function confirmLogout() {

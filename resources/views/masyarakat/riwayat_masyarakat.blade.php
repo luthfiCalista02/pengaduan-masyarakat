@@ -60,54 +60,56 @@
 
   <main class="main mt-40">
     <div class="shadow rounded-xl p-8 w-full max-w-4xl mx-auto mt-40 bg-white">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6" style="color: #435585;">Riwayat Pengaduan</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6" style="color: #435585;">Riwayat Pengaduan</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-2">No</th>
+                        <th class="border border-gray-300 px-4 py-2">Judul Pengaduan</th>
+                        <th class="border border-gray-300 px-4 py-2">Status</th>
+                        <th class="border border-gray-300 px-4 py-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pengaduan as $index => $item)
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">{{ $index + 1 }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $item->judul_pengaduan }}</td>
+                            <td class="border border-gray-300 px-4 py-2">
+                                <span class="px-2 py-1 text-sm rounded
+                                    {{ $item->status == 'Menunggu' ? 'bg-yellow-500 text-white' :
+                                       ($item->status == 'Proses' ? 'bg-blue-500 text-white' :
+                                       ($item->status == 'Ditolak' ? 'bg-red-500 text-white' : 'bg-green-500 text-white')) }}">
+                                    {{ $item->status }}
+                                </span>
+                            </td>
+                            <td class="border border-gray-300 px-4 py-2">
+                                <!-- Tombol Detail (Hanya jika status BUKAN "Ditolak") -->
+                                @if ($item->status != 'Ditolak')
+                                    <a href="{{ route('detail_riwayat', ['id_pengaduan' => $item->id_pengaduan]) }}"
+                                        class="bg-green-500 text-white px-3 py-1 rounded">
+                                        Detail
+                                    </a>
+                                @endif
 
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-300">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="border border-gray-300 px-4 py-2">No</th>
-              <th class="border border-gray-300 px-4 py-2">Judul Pengaduan</th>
-              <th class="border border-gray-300 px-4 py-2">Status</th>
-              <th class="border border-gray-300 px-4 py-2">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">1</td>
-              <td class="border border-gray-300 px-4 py-2">Judul Pengaduan</td>
-              <td class="border border-gray-300 px-4 py-2">
-                <span class="bg-red-500 text-white px-2 py-1 text-sm rounded">Menunggu</span>
-              </td>
-              <td class="border border-gray-300 px-4 py-2">
-                <a href="{{route('detail_riwayat') }}" class="bg-green-500 text-white px-3 py-1 rounded">Detail</a>
-                <button class="bg-red-500 text-white px-3 py-1 rounded">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">2</td>
-              <td class="border border-gray-300 px-4 py-2">Judul Pengaduan</td>
-              <td class="border border-gray-300 px-4 py-2">
-                <span class="bg-yellow-500 text-white px-2 py-1 text-sm rounded">Proses</span>
-              </td>
-              <td class="border border-gray-300 px-4 py-2">
-                <a href="{{route('detail_riwayat') }}" class="bg-green-500 text-white px-3 py-1 rounded">Detail</a>
-              </td>
-            </tr>
-            <tr>
-                <td class="border border-gray-300 px-4 py-2">3</td>
-                <td class="border border-gray-300 px-4 py-2">Judul Pengaduan</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <span class="bg-green-500 text-white px-2 py-1 text-sm rounded">Selesai</span>
-                </td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <a href="{{route('detail_riwayat') }}" class="bg-green-500 text-white px-3 py-1 rounded">Detail</a>
-                  <button class="bg-red-500 text-white px-3 py-1 rounded">Hapus</button>
-                </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
+                                <!-- Tombol Hapus (Muncul untuk status "Menunggu" dan "Ditolak") -->
+                                @if ($item->status == 'Menunggu' || $item->status == 'Ditolak')
+                                    <form action="{{ route('hapus_pengaduan', ['id_pengaduan' => $item->id_pengaduan]) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded"
+                                            onclick="return confirm('Yakin ingin menghapus pengaduan ini?')">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
   </main>
 
@@ -177,6 +179,14 @@
           });
         }
       </script>
+
+      <script>
+    function confirmDelete(event) {
+        if (!confirm('Yakin ingin menghapus pengaduan ini?')) {
+            event.preventDefault();
+        }
+    }
+</script>
 
 </body>
 

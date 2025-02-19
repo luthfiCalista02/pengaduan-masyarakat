@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use App\Models\Pengaduan;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
@@ -11,12 +12,18 @@ class MasyarakatController extends Controller
 {
     public function page_landing()
     {
-        return view(view: 'masyarakat.planding_masyarakat');
+        $jumlahMasyarakat = Masyarakat::count();
+        $jumlahPengaduan = Pengaduan::count();
+        $jumlahPegawai = Pegawai::count();
+
+        return view('masyarakat.planding_masyarakat', compact('jumlahMasyarakat', 'jumlahPengaduan', 'jumlahPegawai'));
     }
+
 
     public function beranda_masyarakat()
     {
-        return view('masyarakat.beranda_masyarakat');
+        $pengaduan = Pengaduan::all();
+        return view('masyarakat.beranda_masyarakat', compact('pengaduan'));
     }
 
     public function prosespengaduan(Request $request) {
@@ -53,12 +60,25 @@ class MasyarakatController extends Controller
 
     public function riwayat_masyarakat()
     {
-        return view('masyarakat.riwayat_masyarakat');
+        $pengaduan = Pengaduan::withTrashed()->get(); // Pastikan data yang dihapus tetap muncul
+        return view('masyarakat.riwayat_masyarakat', compact('pengaduan'));
     }
 
-    public function detail_riwayat()
+    public function hapus_pengaduan($id_pengaduan)
     {
-        return view('masyarakat.detail_riwayat');
+        $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
+        $pengaduan->status = 'Ditolak'; // Ubah status ke Ditolak
+        $pengaduan->save();
+        $pengaduan->delete(); // Soft delete
+
+        return redirect()->back()->with('success', 'Pengaduan telah ditolak.');
+    }
+
+
+    public function detail_riwayat($id_pengaduan)
+    {
+        $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
+        return view('masyarakat.detail_riwayat', compact('pengaduan'));
     }
 
     public function profil_masyarakat()

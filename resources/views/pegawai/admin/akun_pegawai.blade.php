@@ -27,6 +27,8 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -51,21 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_admin') }}">
-              <i class="material-symbols-rounded text-white">shield_person</i>
-              <span class="nav-link-text ms-1 text-white">Akun Admin</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active text-dark" href="{{ route('akun_petugas') }}" style="background-color: #FFF0DC;">
-              <i class="material-symbols-rounded" style="color: #435585;">person_edit</i>
-              <span class="nav-link-text ms-1" style="color: #435585;">Akun Petugas</span>
+            <a class="nav-link active text-dark" href="{{ route('akun_pegawai') }}" style="background-color: #FFF0DC;">
+              <i class="material-symbols-rounded" style="color: #435585;">shield_person</i>
+              <span class="nav-link-text ms-1" style="color: #435585;">Akun Pegawai</span>
             </a>
         </li>
         <li class="nav-item">
@@ -91,6 +81,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -98,61 +90,77 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
               <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Akun Petugas</li>
+              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Akun Pegawai</li>
             </ol>
           </nav>
-        </div>
-    </nav>
-    <!-- End Navbar -->
-    <section id="pengaduan-masyarakat" class="container mt-4">
-        <a href="{{ route('akun_petugas') }}" class="btn btn-warning mb-3">Kembali</a>
-        <div class="card w-50">
-            <div class="card-header text-white" style="background-color: #435585;">Edit Akun Petugas</div>
-            <div class="card-body">
-                <div style="margin-bottom: 15px;">
-                    <label for="namaAdmin" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Petugas</label>
-                    <input type="text" id="namaPetugas" placeholder="Masukkan Nama Petugas"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" placeholder="Masukkan Email"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi</label>
-                        <input type="password" id="password" placeholder="Masukkan Kata Sandi"
-                               style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">                        <i id="eye-icon" class="fa fa-eye"></i>
-                        </button>
-                </div>
-
-                <div style="text-align: right;">
-                    <button class="btn btn-info mb-3">Simpan</button>
-                </div>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+              <div class="input-group input-group-outline">
+                <label class="form-label">Search</label>
+                <input type="text" class="form-control">
+              </div>
             </div>
+            <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+              <li class="nav-item d-flex align-items-center">
+                <a class="btn btn-sm mb-0 me-3 btn-success" href="{{ route('tambah_akun_pegawai') }}">Tambah Akun</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </section>
-
-    <!-- JavaScript untuk toggle password -->
-    <script>
-        function togglePassword() {
-            var passwordInput = document.getElementById("password");
-            var eyeIcon = document.getElementById("eye-icon");
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash"); // Ikon berubah ke 'mata tertutup'
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye"); // Ikon kembali ke 'mata terbuka'
-            }
-        }
-    </script>
-
+      </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-2">
+        <div class="row">
+          <div class="col-12">
+            <div class="card my-4">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="shadow-dark border-radius-lg pt-4 pb-3" style="background-color: #435585;">
+                  <h6 class="text-white text-capitalize ps-3">Tabel Akun Pegawai</h6>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nama Pegawai</th>
+                            <th>Email</th>
+                            <th>Peran</th>
+                            <th>Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @if ($pegawai->isEmpty())
+                                <tr>
+                                    <td colspan="4" class="text-center">Belum ada data pegawai.</td>
+                                </tr>
+                            @else
+                                @foreach ($pegawai as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->nama_pegawai }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->level }}</td>
+                                    <td>
+                                        <a href="{{ route('edit_akun_pegawai', $item->id_pegawai) }}" class="btn btn-success btn-sm">Edit</a>
+                                        <form id="delete-form-1" action="{{ route('akun.hapus', 1) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete(1)">Hapus</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
   </main>
   <!--   Core JS Files   -->
   <script src="assetss/assets/js/core/popper.min.js"></script>
@@ -425,6 +433,37 @@
       });
     }
   </script>
+
+  <!-- Sweet Alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+  function confirmDelete(index) {
+      Swal.fire({
+          title: "Apakah Anda yakin?",
+          text: "Akun yang dihapus tidak bisa dikembalikan!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Ya, Hapus",
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form-' + index).submit();
+          }
+      });
+  }
+  </script>
+
+  @if(session('success'))
+  <script>
+  Swal.fire({
+      title: "Berhasil!",
+      text: "{{ session('success') }}",
+      icon: "success",
+      confirmButtonText: "OK"
+  });
+  </script>
+  @endif
 
 </body>
 

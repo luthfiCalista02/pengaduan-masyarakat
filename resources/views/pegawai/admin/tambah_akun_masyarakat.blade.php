@@ -27,11 +27,13 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="img/logreg_image.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+        <img src="{{ asset('img/logreg_image.png') }}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
         <span class="ms-1 text-sm text-white">Pengaduan Masyarakat</span>
       </a>
     </div>
@@ -51,21 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_admin') }}">
+            <a class="nav-link text-dark" href="{{ route('akun_pegawai') }}">
               <i class="material-symbols-rounded text-white">shield_person</i>
-              <span class="nav-link-text ms-1 text-white">Akun Admin</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_petugas') }}">
-              <i class="material-symbols-rounded text-white">person_edit</i>
-              <span class="nav-link-text ms-1 text-white">Akun Petugas</span>
+              <span class="nav-link-text ms-1 text-white">Akun Pegawai</span>
             </a>
         </li>
         <li class="nav-item">
@@ -91,6 +81,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -104,70 +96,81 @@
         </div>
     </nav>
     <!-- End Navbar -->
+
+    <!-- Content -->
     <section id="pengaduan-masyarakat" class="container mt-4">
         <a href="{{ route('akun_masyarakat') }}" class="btn btn-warning mb-3">Kembali</a>
         <div class="card w-50">
             <div class="card-header text-white" style="background-color: #435585;">Tambah Akun Masyarakat</div>
             <div class="card-body">
-                <div style="margin-bottom: 15px;">
-                    <label for="nik" style="display: block; font-weight: bold; margin-bottom: 5px;">NIK</label>
-                    <input type="text" id="nik" placeholder="Masukkan NIK"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                @if (Session::get('warning'))
+                <div class="alert alert-warning">
+                    <p>{{ Session::get('warning') }}</p>
                 </div>
+                @endif
+                <form action="{{ route('masyarakat.post') }}" method="POST" class="space-y-4">
+                @csrf
+                    <div style="margin-bottom: 15px;">
+                        <label for="nik" style="display: block; font-weight: bold; margin-bottom: 5px;">NIK</label>
+                        <input type="text" id="nik" name="nik" placeholder="Masukkan NIK"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('nik') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="namaLengkap" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Lengkap</label>
-                    <input type="text" id="namaLengkap" placeholder="Masukkan Nama Lengkap"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="namaLengkap" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Lengkap</label>
+                        <input type="text" id="namaLengkap" name="nama_masyarakat" placeholder="Masukkan Nama Lengkap"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('nama_masyarakat') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="alamat" style="display: block; font-weight: bold; margin-bottom: 5px;">Alamat</label>
-                    <textarea id="alamat" placeholder="Masukkan Alamat"
-                              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;"></textarea>
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="alamat" style="display: block; font-weight: bold; margin-bottom: 5px;">Alamat</label>
+                        <textarea id="alamat" name="alamat" placeholder="Masukkan Alamat"
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">{{ old('alamat') }}</textarea>
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" placeholder="Masukkan Email"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan Email"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('email') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="nomorTelepon" style="display: block; font-weight: bold; margin-bottom: 5px;">Nomor Telepon</label>
-                    <input type="tel" id="nomorTelepon" placeholder="Masukkan Nomor Telepon"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="nomorTelepon" style="display: block; font-weight: bold; margin-bottom: 5px;">Nomor Telepon</label>
+                        <input type="tel" id="nomorTelepon" name="tlp" placeholder="Masukkan Nomor Telepon"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('tlp') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="tanggalLahir" style="display: block; font-weight: bold; margin-bottom: 5px;">Tanggal Lahir</label>
-                    <input type="date" id="tanggalLahir"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="tanggalLahir" style="display: block; font-weight: bold; margin-bottom: 5px;">Tanggal Lahir</label>
+                        <input type="date" id="tanggalLahir" name="tgl_lahir"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('tgl_lahir') }}">
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="jenisKelamin" style="display: block; font-weight: bold; margin-bottom: 5px;">Jenis Kelamin</label>
-                    <select id="jenisKelamin"
-                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="">Pilih Jenis Kelamin</option>
-                        <option value="laki-laki">Laki-laki</option>
-                        <option value="perempuan">Perempuan</option>
-                        <option value="lainnya">Lainnya</option>
-                    </select>
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="jenisKelamin" style="display: block; font-weight: bold; margin-bottom: 5px;">Jenis Kelamin</label>
+                        <select id="jenisKelamin" name="jenis_kelamin"
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('jenis_kelamin') }}">
+                            <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                            <option value="laki-laki">Laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi</label>
-                    <input type="password" id="password" placeholder="Masukkan Kata Sandi"
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Kata Sandi</label>
+                        <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('password') }}">
+                    </div>
 
-                <div style="text-align: right;">
-                    <button class="btn btn-info mb-3">Tambah</button>
-                </div>
+                    <div style="text-align: right;">
+                        <button class="btn btn-info mb-3">Tambah</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
+    <!-- End Content -->
 
     <!-- JavaScript untuk toggle password -->
     <script>

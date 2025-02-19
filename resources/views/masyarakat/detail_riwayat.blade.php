@@ -10,7 +10,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Favicons -->
-  <link href="assets/assets/img/favicon.png" rel="icon">
+  <link href="{{ asset('assets/assets/img/favicon.png') }}" rel="icon">
   <link href="assets/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -19,14 +19,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="{{ asset('assets/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/assets/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="assets/assets/css/main.css" rel="stylesheet">
+  <link href="{{ asset('assets/assets/css/main.css') }}" rel="stylesheet">
 
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -70,39 +70,39 @@
 
         <div class="grid grid-cols-1 gap-4">
             <div>
-            <p class="text-gray-700 font-semibold">Judul Pengaduan:</p>
-            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">Judul Pengaduan</p>
+            <p class="text-gray-700 font-semibold">Nama</p>
+            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $pengaduan->nama_masyarakat }}</p>
             </div>
 
             <div>
-            <p class="text-gray-700 font-semibold">Isi Pengaduan:</p>
-            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">Isi lengkap pengaduan yang diajukan.</p>
+            <p class="text-gray-700 font-semibold">NIK</p>
+            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $pengaduan->nik }}</p>
             </div>
 
             <div>
-            <p class="text-gray-700 font-semibold">Waktu Kejadian:</p>
-            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">10 Februari 2025</p>
+            <p class="text-gray-700 font-semibold">Judul Pengaduan</p>
+            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $pengaduan->judul_pengaduan }}</p>
             </div>
 
             <div>
-            <p class="text-gray-700 font-semibold">Lokasi Kejadian:</p>
-            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">Jalan Raya No. 123</p>
+            <p class="text-gray-700 font-semibold">Isi Pengaduan</p>
+            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $pengaduan->isi_pengaduan }}</p>
             </div>
 
             <div>
-            <p class="text-gray-700 font-semibold">Kategori Pengaduan:</p>
-            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">Pelayanan Publik</p>
+            <p class="text-gray-700 font-semibold">Waktu Kejadian</p>
+            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $pengaduan->waktu }}</p>
             </div>
 
             <div>
-            <p class="text-gray-700 font-semibold">Instansi Tujuan:</p>
-            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">Dinas Perhubungan</p>
+            <p class="text-gray-700 font-semibold">Lokasi Kejadian</p>
+            <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $pengaduan->lokasi }}</p>
             </div>
 
             <div>
-            <p class="text-gray-700 font-semibold">Lampiran Pengaduan:</p>
+            <p class="text-gray-700 font-semibold">Lampiran Pengaduan</p>
             <div class="border border-gray-300 px-4 py-2 rounded bg-gray-100 flex justify-center">
-                <img src="path_ke_gambar.jpg" alt="Lampiran Pengaduan" class="max-w-full h-auto rounded">
+                <img src="{{ asset('storage/uploads/pengaduan/'.$pengaduan->foto) }}" alt="Lampiran Pengaduan" class="max-w-full h-auto rounded">
             </div>
             </div>
         </div>
@@ -132,21 +132,21 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/assets/vendor/aos/aos.js"></script>
-  <script src="assets/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="{{ asset('assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/assets/vendor/php-email-form/validate.js') }}"></script>
+  <script src="{{ asset('') }}assets/assets/vendor/aos/aos.js"></script>
+  <script src="{{ asset('assets/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('assets/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
 
   <!-- Main JS File -->
-  <script src="assets/assets/js/main.js"></script>
+  <script src="{{ asset('assets/assets/js/main.js') }}"></script>
 
     <!--   Core JS Files   -->
-    <script src="assetss/assets/js/core/popper.min.js"></script>
-    <script src="assetss/assets/js/core/bootstrap.min.js"></script>
-    <script src="assetss/assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="assetss/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="{{ asset('assetss/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('assetss/assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assetss/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assetss/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script>
       var win = navigator.platform.indexOf('Win') > -1;
       if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -159,7 +159,7 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="assetss/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+    <scrip src="{{ asset('assetss/assets/js/material-dashboard.min.js?v=3.2.0') }}"></script>
 
     <script>
         function confirmLogout() {

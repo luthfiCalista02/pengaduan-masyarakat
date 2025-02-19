@@ -138,21 +138,21 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahMasyarakat ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Masyarakat</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahPengaduan ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Pengaduan</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahPegawai ?? 0 }}" data-purecounter-duration="1" class="purecounter"></span>
               <p>Pegawai</p>
             </div>
           </div><!-- End Stats Item -->
@@ -161,106 +161,56 @@
 
       </div>
 
-    </section><!-- /Presentase Section -->
+    </section>
+    <!-- /Presentase Section -->
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section" style="background-color: #FFF0DC;">
+    <section id="contact" class="contact section" style="background-color: #FFF0DC; padding: 50px 0;">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Kontak Kami</h2>
-      </div><!-- End Section Title -->
+        <!-- Section Title -->
+        <div class="container section-title text-center" data-aos="fade-up">
+          <h2>Kontak Kami</h2>
+        </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-4 g-lg-5">
+        <div class="container d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-5">
-            <div class="info-box" data-aos="fade-up" data-aos-delay="200" style="background-color: #435585;">
+            <div class="info-box text-center p-4" data-aos="fade-up" data-aos-delay="200" style="background-color: #435585; border-radius: 15px; color: white;">
               <h3>Info Kontak</h3>
-              <p>Untuk informasi lebih lanjut, hubungi kami melalui kontak dibawah ini. Kami siap membantu Anda!</p>
+              <p>Untuk informasi lebih lanjut, hubungi kami melalui kontak di bawah ini. Kami siap membantu Anda!</p>
 
-              <div class="info-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box">
-                  <i class="bi bi-geo-alt"></i>
-                </div>
-                <div class="content">
-                  <h4>Lokasi Kami</h4>
-                  <p>A108 Adam Street</p>
-                  <p>New York, NY 535022</p>
+              <div class="info-item d-flex align-items-center justify-content-start mb-5" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-geo-alt fs-3 me-3"></i>
+                <div>
+                  <h4 class="mb-1" style="color: white;">Lokasi Kami</h4>
+                  <p class="mb-0">A108 Adam Street, New York, NY 535022</p>
                 </div>
               </div>
 
-              <div class="info-item" data-aos="fade-up" data-aos-delay="400">
-                <div class="icon-box">
-                  <i class="bi bi-telephone"></i>
-                </div>
-                <div class="content">
-                  <h4>Nomor Telepon</h4>
-                  <p>+1 5589 55488 55</p>
-                  <p>+1 6678 254445 41</p>
+              <div class="info-item d-flex align-items-center justify-content-start mb-5" data-aos="fade-up" data-aos-delay="400">
+                <i class="bi bi-telephone fs-3 me-3"></i>
+                <div>
+                  <h4 class="mb-1" style="color: white;">Nomor Telepon</h4>
+                  <p class="mb-0">+1 5589 55488 55 | +1 6678 254445 41</p>
                 </div>
               </div>
 
-              <div class="info-item" data-aos="fade-up" data-aos-delay="500">
-                <div class="icon-box">
-                  <i class="bi bi-envelope"></i>
-                </div>
-                <div class="content">
-                  <h4>Alamat Email</h4>
-                  <p>info@example.com</p>
-                  <p>contact@example.com</p>
+              <div class="info-item d-flex align-items-center justify-content-start mb-5" data-aos="fade-up" data-aos-delay="500">
+                <i class="bi bi-envelope fs-3 me-3"></i>
+                <div>
+                  <h4 class="mb-1" style="color: white;">Alamat Email</h4>
+                  <p class="mb-0">info@example.com | contact@example.com</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-7">
-            <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
-              <h3>Hubungi Kami</h3>
-              <p>Punya pertanyaan? Silakan kirimkan pesan Anda melalui form di bawah ini.</p>
-
-              <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-                <div class="row gy-4">
-
-                  <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Nama" required="">
-                  </div>
-
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required="">
-                  </div>
-
-                  <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subjek" required="">
-                  </div>
-
-                  <div class="col-12">
-                    <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required=""></textarea>
-                  </div>
-
-                  <div class="col-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Pesan Anda Sudah Terkirim. Terima Kasih!</div>
-
-                    <button type="submit" class="btn" style="background-color: #435585;">KIRIM PESAN</button>
-                  </div>
-
-                </div>
-              </form>
-
-            </div>
-          </div>
-
         </div>
 
-      </div>
-
-    </section><!-- /Contact Section -->
+    </section>
+    <!-- /Contact Section -->
 
   </main>
 
-  <footer id="footer" class="footer" style="background-color: #FFF0DC;">
+  <footer id="footer" class="footer" style="background-color: #435585; color: #FFF0DC;">
 
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">iLanding</strong> <span>All Rights Reserved</span></p>

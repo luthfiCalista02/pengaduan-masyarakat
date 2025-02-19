@@ -18,42 +18,51 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/hapus-akun/{id}', [AuthController::class, 'destroy_acc'])->name('akun.hapus');
 });
 
-// Masyarakat
+// Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat
 Route::get('/', [MasyarakatController::class, 'page_landing'])->name('page_landing');
 Route::get('/beranda_masyarakat', [MasyarakatController::class, 'beranda_masyarakat'])->name('beranda_masyarakat');
 Route::post('/prosespengaduan', [MasyarakatController::class, 'prosespengaduan'])->name('pengaduan.post');
-
-
 Route::get('/riwayat_masyarakat', [MasyarakatController::class, 'riwayat_masyarakat'])->name('riwayat_masyarakat');
-Route::get('/detail_riwayat', [MasyarakatController::class, 'detail_riwayat'])->name('detail_riwayat');
+Route::get('/detail_riwayat/{id_pengaduan}', [MasyarakatController::class, 'detail_riwayat'])->name('detail_riwayat');
 Route::get('/profil_masyarakat', [MasyarakatController::class, 'profil_masyarakat'])->name('profil_masyarakat');
 Route::get('/edit_profil', [MasyarakatController::class, 'edit_profil'])->name('edit_profil');
 
 // Pegawai
 
-// Admin
+// Admin // Admin // Admin // Admin // Admin // Admin // Admin // Admin // Admin // Admin
 Route::get('/dashboard_admin', [PegawaiController::class, 'dashboard_admin'])->name('dashboard_admin');
-Route::get('/tabel_pengaduan', [PegawaiController::class, 'tabel_pengaduan'])->name('tabel_pengaduan');
-Route::get('/tabel_tanggapan', [PegawaiController::class, 'tabel_tanggapan'])->name('tabel_tanggapan');
-Route::get('/akun_admin', [PegawaiController::class, 'akun_admin'])->name('akun_admin');
-Route::get('/akun_petugas', [PegawaiController::class, 'akun_petugas'])->name('akun_petugas');
-Route::get('/akun_masyarakat', [PegawaiController::class, 'akun_masyarakat'])->name('akun_masyarakat');
 Route::get('/generate_laporan', [PegawaiController::class, 'generate_laporan'])->name('generate_laporan');
-Route::get('/detail_pengaduan', [PegawaiController::class, 'detail_pengaduan'])->name('detail_pengaduan');
-Route::get('/otorisasi_pengaduan', [PegawaiController::class, 'otorisasi_pengaduan'])->name('otorisasi_pengaduan');
-Route::get('/tanggapi_pengaduan', [PegawaiController::class, 'tanggapi_pengaduan'])->name('tanggapi_pengaduan');
-Route::get('/tambah_akun_admin', [PegawaiController::class, 'tambah_akun_admin'])->name('tambah_akun_admin');
-Route::get('/tambah_akun_petugas', [PegawaiController::class, 'tambah_akun_petugas'])->name('tambah_akun_petugas');
-Route::get('/tambah_akun_masyarakat', [PegawaiController::class, 'tambah_akun_masyarakat'])->name('tambah_akun_masyarakat');
-Route::get('/detail_akun_masyarakat', [PegawaiController::class, 'detail_akun_masyarakat'])->name('detail_akun_masyarakat');
-Route::get('/edit_akun_admin', [PegawaiController::class, 'edit_akun_admin'])->name('edit_akun_admin');
-Route::get('/edit_akun_petugas', [PegawaiController::class, 'edit_akun_petugas'])->name('edit_akun_petugas');
-Route::get('/edit_akun_masyarakat', [PegawaiController::class, 'edit_akun_masyarakat'])->name('edit_akun_masyarakat');
 
-// Petugas
+// Bagian Pegawai
+Route::get('/akun_pegawai', [PegawaiController::class, 'akun_pegawai'])->name('akun_pegawai');
+Route::get('/tambah_akun_pegawai', [PegawaiController::class, 'tambah_akun_pegawai'])->name('tambah_akun_pegawai');
+Route::post('/tambahpegawai', [PegawaiController::class, 'tambahpegawai'])->name('pegawai.post');
+Route::get('/edit_akun_pegawai/{id_pegawai}', [PegawaiController::class, 'edit_akun_pegawai'])->name('edit_akun_pegawai');
+Route::post('/updatepegawai/{id_pegawai}', [PegawaiController::class, 'updatepegawai'])->name('pegawai.update');
+
+// Bagian Masyarakat
+Route::get('/akun_masyarakat', [PegawaiController::class, 'akun_masyarakat'])->name('akun_masyarakat');
+Route::get('/tambah_akun_masyarakat', [PegawaiController::class, 'tambah_akun_masyarakat'])->name('tambah_akun_masyarakat');
+Route::post('/tambahmasyarakat', [PegawaiController::class, 'tambahmasyarakat'])->name('masyarakat.post');
+Route::get('/detail_akun_masyarakat/{nik}', [PegawaiController::class, 'detail_akun_masyarakat'])->name('detail_akun_masyarakat');
+
+// Bagian Pengaduan
+Route::get('/tabel_pengaduan', [PegawaiController::class, 'tabel_pengaduan'])->name('tabel_pengaduan');
+Route::get('/detail_pengaduan/{id_pengaduan}', [PegawaiController::class, 'detail_pengaduan'])->name('detail_pengaduan');
+Route::get('/otorisasi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'otorisasi_pengaduan'])->name('otorisasi_pengaduan');
+Route::post('/konfirmasi_otorisasi/{id_pengaduan}', [PegawaiController::class, 'konfirmasi_otorisasi'])->name('konfirmasi_otorisasi');
+Route::get('/tanggapi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'tanggapi_pengaduan'])->name('tanggapi_pengaduan');
+Route::post('/simpan_tanggapan/{id_pengaduan}', [PegawaiController::class, 'simpan_tanggapan'])->name('simpan_tanggapan');
+Route::get('/hapus_pengaduan/{id_pengaduan}', [PegawaiController::class, 'hapus_pengaduan'])->name('hapus_pengaduan');
+
+
+
+// Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas
 Route::get('/dashboard_petugas', [PegawaiController::class, 'dashboard_petugas'])->name('dashboard_petugas');
 Route::get('/petugas_tabel_pengaduan', [PegawaiController::class, 'petugas_tabel_pengaduan'])->name('petugas_tabel_pengaduan');
-Route::get('/petugas_tabel_tanggapan', [PegawaiController::class, 'petugas_tabel_tanggapan'])->name('petugas_tabel_tanggapan');
-Route::get('/petugas_detail_pengaduan', [PegawaiController::class, 'petugas_detail_pengaduan'])->name('petugas_detail_pengaduan');
-Route::get('/petugas_otorisasi_pengaduan', [PegawaiController::class, 'petugas_otorisasi_pengaduan'])->name('petugas_otorisasi_pengaduan');
-Route::get('/petugas_tanggapi_pengaduan', [PegawaiController::class, 'petugas_tanggapi_pengaduan'])->name('petugas_tanggapi_pengaduan');
+Route::get('/petugas_detail_pengaduan/{id_pengaduan}', [PegawaiController::class, 'petugas_detail_pengaduan'])->name('petugas_detail_pengaduan');
+Route::get('/petugas_otorisasi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'petugas_otorisasi_pengaduan'])->name('petugas_otorisasi_pengaduan');
+Route::post('/petugas_konfirmasi_otorisasi/{id_pengaduan}', [PegawaiController::class, 'petugas_konfirmasi_otorisasi'])->name('petugas_konfirmasi_otorisasi');
+Route::get('/petugas_tanggapi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'petugas_tanggapi_pengaduan'])->name('petugas_tanggapi_pengaduan');
+Route::post('/petugas_simpan_tanggapan/{id_pengaduan}', [PegawaiController::class, 'petugas_simpan_tanggapan'])->name('petugas_simpan_tanggapan');
+Route::get('/petugas_hapus_pengaduan/{id_pengaduan}', [PegawaiController::class, 'petugas_hapus_pengaduan'])->name('petugas_hapus_pengaduan');

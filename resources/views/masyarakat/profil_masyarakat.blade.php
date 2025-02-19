@@ -62,46 +62,46 @@
     <div class="shadow-lg rounded-xl p-8 w-full max-w-4xl mx-auto bg-white">
       <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" style="color: #435585;">Profil Masyarakat</h2>
 
-      <div class="grid grid-cols-2 gap-6 text-gray-700">
-        <div>
-          <p class="font-semibold">NIK</p>
-          <p class="bg-gray-100 p-3 rounded-lg">1234567890123456</p>
+        <div class="grid grid-cols-2 gap-6 text-gray-700">
+            <div>
+            <p class="font-semibold">NIK</p>
+            <p class="bg-gray-100 p-3 rounded-lg">1234567890123456</p>
+            </div>
+
+            <div>
+            <p class="font-semibold">Nama Lengkap</p>
+            <p class="bg-gray-100 p-3 rounded-lg">Budi Santoso</p>
+            </div>
+
+            <div>
+            <p class="font-semibold">Alamat</p>
+            <p class="bg-gray-100 p-3 rounded-lg">Jl. Mawar No. 10, Jakarta</p>
+            </div>
+
+            <div>
+            <p class="font-semibold">Tanggal Lahir</p>
+            <p class="bg-gray-100 p-3 rounded-lg">12 Januari 1995</p>
+            </div>
+
+            <div>
+            <p class="font-semibold">Jenis Kelamin</p>
+            <p class="bg-gray-100 p-3 rounded-lg">Laki-laki</p>
+            </div>
+
+            <div>
+            <p class="font-semibold">No Telp Aktif</p>
+            <p class="bg-gray-100 p-3 rounded-lg">0812-3456-7890</p>
+            </div>
+
+            <div>
+            <p class="font-semibold">Email</p>
+            <p class="bg-gray-100 p-3 rounded-lg">budi@email.com</p>
+            </div>
         </div>
 
-        <div>
-          <p class="font-semibold">Nama Lengkap</p>
-          <p class="bg-gray-100 p-3 rounded-lg">Budi Santoso</p>
+        <div class="flex justify-end mt-6">
+            <a href="{{ route('edit_profil') }}" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold">Edit</a>
         </div>
-
-        <div>
-          <p class="font-semibold">Alamat</p>
-          <p class="bg-gray-100 p-3 rounded-lg">Jl. Mawar No. 10, Jakarta</p>
-        </div>
-
-        <div>
-          <p class="font-semibold">Tanggal Lahir</p>
-          <p class="bg-gray-100 p-3 rounded-lg">12 Januari 1995</p>
-        </div>
-
-        <div>
-          <p class="font-semibold">Jenis Kelamin</p>
-          <p class="bg-gray-100 p-3 rounded-lg">Laki-laki</p>
-        </div>
-
-        <div>
-          <p class="font-semibold">No Telp Aktif</p>
-          <p class="bg-gray-100 p-3 rounded-lg">0812-3456-7890</p>
-        </div>
-
-        <div>
-          <p class="font-semibold">Email</p>
-          <p class="bg-gray-100 p-3 rounded-lg">budi@email.com</p>
-        </div>
-      </div>
-
-      <div class="flex justify-end mt-6">
-        <a href="{{ route('edit_profil') }}" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold">Edit</a>
-      </div>
     </div>
   </main>
 

@@ -9,21 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('masyarakat', function (Blueprint $table) {
+            $table->id('id_masyarakat'); // Auto Increment
             $table->string('nik')->unique();
             $table->string('nama_masyarakat');
             $table->text('alamat');
             $table->date('tgl_lahir');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan', 'Lainnya']);
+            $table->string('jenis_kelamin');
             $table->string('tlp');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

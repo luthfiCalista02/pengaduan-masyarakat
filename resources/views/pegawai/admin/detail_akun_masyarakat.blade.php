@@ -12,14 +12,14 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <!-- Nucleo Icons -->
-  <link href="assetss/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="assetss/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{ asset('assetss/assets/css/nucleo-icons.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assetss/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="assetss/assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('assetss/assets/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
 
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -27,11 +27,13 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="img/logreg_image.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+        <img src="{{ asset('img/logreg_image.png') }}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
         <span class="ms-1 text-sm text-white">Pengaduan Masyarakat</span>
       </a>
     </div>
@@ -51,21 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_admin') }}">
+            <a class="nav-link text-dark" href="{{ route('akun_pegawai') }}">
               <i class="material-symbols-rounded text-white">shield_person</i>
-              <span class="nav-link-text ms-1 text-white">Akun Admin</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_petugas') }}">
-              <i class="material-symbols-rounded text-white">person_edit</i>
-              <span class="nav-link-text ms-1 text-white">Akun Petugas</span>
+              <span class="nav-link-text ms-1 text-white">Akun Pegawai</span>
             </a>
         </li>
         <li class="nav-item">
@@ -104,6 +94,8 @@
         </div>
     </nav>
     <!-- End Navbar -->
+
+    <!-- Content -->
     <section id="pengaduan-masyarakat" class="container mt-4">
         <a href="{{ route('akun_masyarakat') }}" class="btn btn-warning mb-3">Kembali</a>
         <div class="card w-50">
@@ -112,54 +104,55 @@
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">NIK</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        1234567890123456
+                        {{ $masyarakat->nik }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Lengkap</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        John Doe
+                        {{ $masyarakat->nama_masyarakat }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Alamat</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        Jl. Contoh No. 123, Jakarta
+                        {{ $masyarakat->alamat }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        johndoe@example.com
+                        {{ $masyarakat->email }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nomor Telepon</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        +62 812-3456-7890
+                        {{ $masyarakat->tlp }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Tanggal Lahir</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        01 Januari 2000
+                        {{ date('d F Y', strtotime($masyarakat->tgl_lahir)) }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Jenis Kelamin</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        Laki-laki
+                        {{ $masyarakat->jenis_kelamin }}
                     </p>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End Content -->
 
     <!-- JavaScript untuk toggle password -->
     <script>
@@ -181,11 +174,11 @@
 
   </main>
   <!--   Core JS Files   -->
-  <script src="assetss/assets/js/core/popper.min.js"></script>
-  <script src="assetss/assets/js/core/bootstrap.min.js"></script>
-  <script src="assetss/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="assetss/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="assetss/assets/js/plugins/chartjs.min.js"></script>
+  <script src="{{ asset('assetss/assets/js/core/popper.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/core/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('assetss/assets/js/plugins/chartjs.min.js') }}"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -431,7 +424,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assetss/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+  <script src="{{ asset('assetss/assets/js/material-dashboard.min.js?v=3.2.0') }}"></script>
 
   <script>
     function confirmLogout() {

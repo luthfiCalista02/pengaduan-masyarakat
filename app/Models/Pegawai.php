@@ -12,6 +12,9 @@ class Pegawai extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'pegawai';
+    protected $primaryKey = 'id_pegawai';
+    public $timestamps = false;
+    
     protected $fillable = [
         'id_pegawai',
         'nama_pegawai',

@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="regist-page" style="background-color: #435585;">
+<body class="regist-page mt-5 mb-5" style="background-color: #435585;">
   <div class="min-h-screen flex flex-col items-center justify-center">
 
     <!-- Header -->
@@ -34,7 +34,7 @@
         <!-- NIK -->
         <div>
           <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-          <input type="text" id="nik" name="nik" placeholder="Nomor Induk Kependudukan" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <input type="text" id="nik" name="nik" placeholder="Masukkan NIK" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
         </div>
 
         <!-- Nama Lengkap -->

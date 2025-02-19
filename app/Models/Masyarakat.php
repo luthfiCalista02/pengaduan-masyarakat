@@ -13,6 +13,10 @@ class Masyarakat extends Model
     use SoftDeletes;
 
     protected $table = 'masyarakat'; // Nama tabel di database
+    protected $primaryKey = 'nik';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
 
     protected $fillable = [
         'nik',

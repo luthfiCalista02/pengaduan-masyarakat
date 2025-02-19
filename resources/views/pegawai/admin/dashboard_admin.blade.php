@@ -27,6 +27,8 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -51,22 +53,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('akun_admin') }}">
+          <a class="nav-link text-dark" href="{{ route('akun_pegawai') }}">
             <i class="material-symbols-rounded text-white">shield_person</i>
-            <span class="nav-link-text ms-1 text-white">Akun Admin</span>
+            <span class="nav-link-text ms-1 text-white">Akun Pegawai</span>
           </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_petugas') }}">
-              <i class="material-symbols-rounded text-white">person_edit</i>
-              <span class="nav-link-text ms-1 text-white">Akun Petugas</span>
-            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" href="{{ route('akun_masyarakat') }}">
@@ -91,6 +81,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -108,81 +100,65 @@
       </div>
     </nav>
     <!-- End Navbar -->
+
+    <!-- Content -->
     <div class="container-fluid py-2">
       <div class="row">
         <div class="ms-3">
           <h3 class="mb-0 h4 font-weight-bolder mb-4">Dashboard Admin</h3>
         </div>
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-header p-2 ps-3">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <a href="{{ route('akun_masyarakat') }}" class="text-sm mb-0 text-capitalize">Masyarakat</a>
-                  <h4 class="mb-0">$53k</h4>
-                </div>
-                <div class="icon icon-md icon-shape bg-primary shadow-dark shadow text-center border-radius-lg">
-                  <i class="material-symbols-rounded opacity-10">people</i>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer p-2 ps-3">
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
               <div class="card-header p-2 ps-3">
                 <div class="d-flex justify-content-between">
                   <div>
-                    <a href="{{ route('akun_admin') }}" class="text-sm mb-0 text-capitalize">Admin</a>
-                    <h4 class="mb-0">$53k</h4>
+                    <a href="{{ route('akun_masyarakat') }}" class="text-sm mb-0 text-capitalize">Masyarakat</a>
+                    <h4 class="mb-0">{{ $jumlahMasyarakat ?? 0 }}</h4>
+                  </div>
+                  <div class="icon icon-md icon-shape bg-primary shadow-dark shadow text-center border-radius-lg">
+                    <i class="material-symbols-rounded opacity-10">people</i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-2 ps-3">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <a href="{{ route('akun_pegawai') }}" class="text-sm mb-0 text-capitalize">Pegawai</a>
+                    <h4 class="mb-0">{{ $jumlahPegawai ?? 0 }}</h4>
                   </div>
                   <div class="icon icon-md icon-shape bg-warning shadow-dark shadow text-center border-radius-lg">
                     <i class="material-symbols-rounded opacity-10">shield_person</i>
                   </div>
                 </div>
               </div>
-              <div class="card-footer p-2 ps-3">
-              </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-              <div class="card-header p-2 ps-3">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <a href="{{ route('akun_petugas')}}" class="text-sm mb-0 text-capitalize">Petugas</a>
-                    <h4 class="mb-0">$53k</h4>
-                  </div>
-                  <div class="icon icon-md icon-shape bg-info shadow-dark shadow text-center border-radius-lg">
-                    <i class="material-symbols-rounded opacity-10">person_edit</i>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer p-2 ps-3">
-              </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          </div>
+
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
               <div class="card-header p-2 ps-3">
                 <div class="d-flex justify-content-between">
                   <div>
                     <a href="{{ route('tabel_pengaduan') }}" class="text-sm mb-0 text-capitalize">Pengaduan</a>
-                    <h4 class="mb-0">$53k</h4>
+                    <h4 class="mb-0">{{ $jumlahPengaduan ?? 0 }}</h4>
                   </div>
                   <div class="icon icon-md icon-shape bg-danger shadow-dark shadow text-center border-radius-lg">
                     <i class="material-symbols-rounded opacity-10">list</i>
                   </div>
                 </div>
               </div>
-              <div class="card-footer p-2 ps-3">
-              </div>
             </div>
-        </div>
+          </div>
+
       </div>
     </div>
+    <!-- End Content -->
+
   </main>
   <!--   Core JS Files   -->
   <script src="assetss/assets/js/core/popper.min.js"></script>

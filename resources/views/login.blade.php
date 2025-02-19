@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="login-page" style="background-color: #435585;">
+<body class="login-page mt-5 mb-5" style="background-color: #435585;">
   <div class="min-h-screen flex flex-col items-center justify-center">
 
     <!-- Header -->
@@ -26,20 +26,20 @@
       <form action="#" method="POST" class="space-y-4">
         @csrf
         <div>
-          <label for="login" class="block text-sm font-medium text-gray-700">Nama</label>
-          <input type="text" id="login" name="nama_masyarakat" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          <label for="login" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+          <input type="text" id="login" name="nama_masyarakat" placeholder="Masukkan Nama Lengkap" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Email / No. Telp / Username -->
         <div>
             <label for="login" class="block text-sm font-medium text-gray-700">NIK</label>
-            <input type="number" id="login" name="nik" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <input type="number" id="login" name="nik" placeholder="Masukkan NIK" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Kata Sandi -->
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-          <input type="password" id="password" name="password" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Submit Button -->

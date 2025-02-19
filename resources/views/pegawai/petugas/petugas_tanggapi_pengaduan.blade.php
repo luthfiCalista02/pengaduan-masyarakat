@@ -4,22 +4,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="assetss/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assetss/assets/img/favicon.png">
-  <title>
+  <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assetss/assets/img/apple-icon.png')}}">
+  <link rel="icon" type="image/png" href="{{asset('assetss/assets/img/favicon.png">
+')}}  <title>
     Pengaduan Masyarakat
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <!-- Nucleo Icons -->
-  <link href="assetss/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="assetss/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{asset('assetss/assets/css/nucleo-icons.c')}}ss" rel="stylesheet" />
+  <link href="{{asset('assetss/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="assetss/assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+  <link id="pagestyle" href="{{asset('assetss/assets/css/material-dashb')}}oard.css?v=3.2.0" rel="stylesheet" />
 
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -27,11 +27,13 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="img/logreg_image.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+        <img src="{{ asset('img/logreg_image.png')}}" class="navbar-brand-img" width="26" height="26" alt="main_logo">
         <span class="ms-1 text-sm text-white">Pengaduan Masyarakat</span>
       </a>
     </div>
@@ -50,12 +52,6 @@
               <span class="nav-link-text ms-1" style="color: #435585;">Tabel Pengaduan</span>
             </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('petugas_tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
@@ -67,6 +63,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -88,39 +86,42 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Judul</th>
-                        <td>Judul Pengaduan</td>
+                        <td>{{ $pengaduan->judul_pengaduan }}</td>
                         <th>NIK Pelapor</th>
-                        <td>127983982137129</td>
+                        <td>{{ $pengaduan->nik }}</td>
                     </tr>
                     <tr>
                         <th>Tanggal Pengaduan</th>
-                        <td>01 March, 2020</td>
+                        <td>{{ $pengaduan->waktu }}</td>
                         <th>Nama Pelapor</th>
-                        <td>Nama Pelapor</td>
+                        <td>{{ $pengaduan->nama_masyarakat }}</td>
                     </tr>
                 </table>
                 <div class="row mt-3">
                     <div class="col-md-4">
-                        <img src="assetsuser/img/portfolio/portfolio-1.jpg" class="img-fluid border" alt="Foto Pengaduan">
+                        <img src="{{ asset('storage/uploads/pengaduan/'.$pengaduan->foto) }}" class="img-fluid border" alt="Foto Pengaduan">
                     </div>
                     <div class="col-md-8">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>{{ $pengaduan->isi_pengaduan }}</p>
                     </div>
                 </div>
-                <div class="d-flex gap-2 mt-3">
-                    <input type="text" id="name" name="name" placeholder="Isi Tanggapan" required class="flex-grow-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                    <button class="btn btn-info">Tanggapi</button>
-                </div>
+                <form action="{{ route('petugas_simpan_tanggapan', $pengaduan->id_pengaduan) }}" method="POST">
+                    @csrf
+                    <div class="d-flex gap-2 mt-3">
+                        <input type="text" name="tanggapan" placeholder="Isi Tanggapan" required class="flex-grow-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        <button type="submit" class="btn btn-info">Tanggapi</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
   </main>
   <!--   Core JS Files   -->
-  <script src="assetss/assets/js/core/popper.min.js"></script>
-  <script src="assetss/assets/js/core/bootstrap.min.js"></script>
-  <script src="assetss/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="assetss/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="assetss/assets/js/plugins/chartjs.min.js"></script>
+  <script src="{{asset('assetss/assets/js/core/popper.min')}}.js"></script>
+  <script src="{{asset('assetss/assets/js/core/bootstrap.')}}min.js"></script>
+  <script src="{{asset('assetss/assets/js/plugins/perfect')}}-scrollbar.min.js"></script>
+  <script src="{{asset('assetss/assets/js/plugins/smooth-')}}scrollbar.min.js"></script>
+  <script src="{{asset('assetss/assets/js/plugins/chartjs')}}.min.js"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -366,7 +367,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assetss/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+  <script src="{{asset('assetss/assets/js/material-dashbo')}}ard.min.js?v=3.2.0"></script>
 
   <script>
     function confirmLogout() {

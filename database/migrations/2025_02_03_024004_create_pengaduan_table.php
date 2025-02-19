@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('waktu');
             $table->text('lokasi');
             $table->string('foto')->nullable(); // Bisa null jika tidak ada lampiran
-            $table->enum('status', ['menunggu', 'proses', 'selesai'])->default('menunggu');
+            $table->enum('status', ['Menunggu', 'Ditolak', 'Proses', 'Selesai'])->default('Menunggu');
             $table->softDeletes();
             $table->timestamps();
 

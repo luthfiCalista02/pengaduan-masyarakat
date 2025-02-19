@@ -27,6 +27,8 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -50,12 +52,6 @@
               <span class="nav-link-text ms-1" style="color: #435585;">Tabel Pengaduan</span>
             </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('petugas_tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
@@ -67,6 +63,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -109,31 +107,33 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Penerangan Jalan Rusak</td>
-                            <td><span class="badge bg-danger">Menunggu</span></td>
-                            <td>
-                                <a href="{{ route('petugas_otorisasi_pengaduan') }}" class="btn btn-primary btn-sm">Otorisasi</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Sampah Menumpuk</td>
-                            <td><span class="badge bg-warning">Proses</span></td>
-                            <td>
-                                <a href="{{ route('petugas_tanggapi_pengaduan') }}" class="btn btn-success btn-sm">Tanggapi</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Sampah Menumpuk</td>
-                            <td><span class="badge bg-success">Selesai</span></td>
-                            <td>
-                                <a href="{{ route('petugas_detail_pengaduan') }}" class="btn btn-info btn-sm">Detail</a>
-                              <button class="btn btn-danger btn-sm">Hapus</button>
-                            </td>
-                          </tr>
+                            @if ($pengaduan->isEmpty())
+                                <tr>
+                                    <td colspan="4" class="text-center">Belum ada data pengaduan.</td>
+                                </tr>
+                            @else
+                                @foreach ($pengaduan as $index => $item)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $item->judul_pengaduan }}</td>
+                                        <td><span class="badge bg-danger">{{ $item->status }}</span></td>
+                                        <td>
+                                            @if ($item->status == 'Menunggu')
+                                                <a href="{{ route('petugas_otorisasi_pengaduan', $item->id_pengaduan) }}" class="btn btn-info btn-sm">Otorisasi</a>
+                                            @elseif ($item->status == 'Proses')
+                                                <a href="{{ route('petugas_tanggapi_pengaduan', $item->id_pengaduan) }}" class="btn btn-warning btn-sm">Tanggapi</a>
+                                            @elseif ($item->status == 'Selesai' || $item->status == 'Ditolak')
+                                                <a href="{{ route('petugas_detail_pengaduan', $item->id_pengaduan) }}" class="btn btn-info btn-sm">Detail</a>
+                                                <form action="{{ route('petugas_hapus_pengaduan', $item->id_pengaduan) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pengaduan ini?')">Hapus</button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

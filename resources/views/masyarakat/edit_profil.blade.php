@@ -72,42 +72,41 @@
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-gray-700">NIK</label>
-              <input type="text" class="w-full border border-gray-400 rounded px-3 py-2" placeholder="Masukkan NIK">
+              <input type="text" name="nik" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('nik') }}">
             </div>
             <div>
               <label class="block text-gray-700">Nama Lengkap</label>
-              <input type="text" class="w-full border border-gray-400 rounded px-3 py-2" placeholder="Masukkan Nama Lengkap">
+              <input type="text" name="nama_masyarakat" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('nama_masyarakat') }}">
             </div>
           </div>
 
           <div>
             <label class="block text-gray-700">Alamat</label>
-            <input type="text" class="w-full border border-gray-400 rounded px-3 py-2" placeholder="Masukkan Alamat">
+            <input type="text" name="alamat" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('alamat') }}">
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-gray-700">Tanggal Lahir</label>
-              <input type="date" class="w-full border border-gray-400 rounded px-3 py-2">
+              <input type="date" name="tgl_lahir" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('tgl_lahir') }}">
             </div>
             <div>
               <label class="block text-gray-700">Jenis Kelamin</label>
-              <select class="w-full border border-gray-400 rounded px-3 py-2">
+              <select class="w-full border border-gray-400 rounded px-3 py-2" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
                 <option selected disabled>Pilih Jenis Kelamin</option>
                 <option>Laki-laki</option>
                 <option>Perempuan</option>
               </select>
             </div>
           </div>
-
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-gray-700">No. Telp Aktif</label>
-              <input type="text" class="w-full border border-gray-400 rounded px-3 py-2" placeholder="Masukkan No. Telp">
+              <input type="text" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('tlp') }}">
             </div>
             <div>
               <label class="block text-gray-700">Email</label>
-              <input type="email" class="w-full border border-gray-400 rounded px-3 py-2" placeholder="Masukkan Email">
+              <input type="email" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('email') }}">
             </div>
           </div>
 

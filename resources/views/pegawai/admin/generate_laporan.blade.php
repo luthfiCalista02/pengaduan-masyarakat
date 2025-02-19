@@ -27,6 +27,8 @@
 </head>
 
 <body class="g-sidenav-show" style="background-color: #FFF0DC;">
+
+  <!-- Sidebar -->
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 my-2" id="sidenav-main" style="background-color: #435585;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -51,21 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_admin') }}">
+            <a class="nav-link text-dark" href="{{ route('akun_pegawai') }}">
               <i class="material-symbols-rounded text-white">shield_person</i>
-              <span class="nav-link-text ms-1 text-white">Akun Admin</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('akun_petugas') }}">
-              <i class="material-symbols-rounded text-white">person_edit</i>
-              <span class="nav-link-text ms-1 text-white">Akun Petugas</span>
+              <span class="nav-link-text ms-1 text-white">Akun Pegawai</span>
             </a>
         </li>
         <li class="nav-item">
@@ -91,6 +81,8 @@
         </div>
     </div>
   </aside>
+  <!-- End Sidebar -->
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -113,7 +105,7 @@
                     <label for="bulan" style="display: block; font-weight: bold; margin-bottom: 5px;">Bulan</label>
                     <select id="bulan"
                             style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="">Pilih Bulan</option>
+                        <option value="" disabled selected>Pilih Bulan</option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
@@ -134,7 +126,7 @@
                     <label for="tahun" style="display: block; font-weight: bold; margin-bottom: 5px;">Tahun</label>
                     <select id="tahun"
                             style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="">Pilih Tahun</option>
+                        <option value="" disabled selected>Pilih Tahun</option>
                         <script>
                             var tahunSekarang = new Date().getFullYear();
                             for (var i = tahunSekarang; i >= tahunSekarang - 50; i--) {
@@ -149,7 +141,7 @@
                     <label for="status" style="display: block; font-weight: bold; margin-bottom: 5px;">Status</label>
                     <select id="status"
                             style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="">Pilih Status</option>
+                        <option value="" disabled selected>Pilih Status</option>
                         <option value="semua">Semua</option>
                         <option value="menunggu">Menunggu</option>
                         <option value="proses">Proses</option>

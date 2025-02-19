@@ -50,12 +50,6 @@
             <span class="nav-link-text ms-1 text-white">Tabel Pengaduan</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('petugas_tabel_tanggapan') }}">
-            <i class="material-symbols-rounded text-white">table_view</i>
-            <span class="nav-link-text ms-1 text-white">Tabel Tanggapan</span>
-          </a>
-        </li>
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
@@ -95,7 +89,7 @@
                 <div class="d-flex justify-content-between">
                   <div>
                     <a href="{{ route('petugas_tabel_pengaduan') }}" class="text-sm mb-0 text-capitalize">Pengaduan</a>
-                    <h4 class="mb-0">$53k</h4>
+                    <h4 class="mb-0">{{ $jumlahPengaduan ?? 0 }}</h4>
                   </div>
                   <div class="icon icon-md icon-shape bg-danger shadow-dark shadow text-center border-radius-lg">
                     <i class="material-symbols-rounded opacity-10">list</i>
