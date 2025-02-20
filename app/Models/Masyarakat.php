@@ -16,7 +16,7 @@ class Masyarakat extends Model
     protected $primaryKey = 'nik';
     public $incrementing = false;
     protected $keyType = 'string';
-
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'nik',

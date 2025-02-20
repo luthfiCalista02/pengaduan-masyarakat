@@ -72,9 +72,15 @@
         </li>
       </ul>
     </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a href="#" onclick="confirmLogout()" class="btn w-100 btn-getstarted" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
+            <a href="#" onclick="event.preventDefault(); confirmLogout();"
+                class="btn w-100 btn-getstarted"
+                type="button"
+                style="background-color: #FFF0DC; color: #435585;">
                 <i class="material-symbols-rounded" style="color: #435585;">logout</i>
                 Keluar
             </a>
@@ -104,49 +110,49 @@
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">NIK</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ $masyarakat->nik }}
+                        {{ $user->nik }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nama Lengkap</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ $masyarakat->nama_masyarakat }}
+                        {{ $user->nama_masyarakat }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Alamat</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ $masyarakat->alamat }}
+                        {{ $user->alamat }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ $masyarakat->email }}
+                        {{ $user->email }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nomor Telepon</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ $masyarakat->tlp }}
+                        {{ $user->tlp }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Tanggal Lahir</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ date('d F Y', strtotime($masyarakat->tgl_lahir)) }}
+                        {{ date('d F Y', strtotime($user->tgl_lahir)) }}
                     </p>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-weight: bold; margin-bottom: 5px;">Jenis Kelamin</label>
                     <p style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f8f9fa;">
-                        {{ $masyarakat->jenis_kelamin }}
+                        {{ $user->jenis_kelamin }}
                     </p>
                 </div>
             </div>
@@ -428,22 +434,23 @@
 
   <script>
     function confirmLogout() {
-      Swal.fire({
-        title: "Yakin ingin keluar?",
-        text: "Anda akan logout dari sistem.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Ya, Logout",
-        cancelButtonText: "Batal"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "{{ route('logout') }}"; // Ganti dengan route logout yang benar
-        }
-      });
+        Swal.fire({
+            title: "Yakin ingin keluar?",
+            text: "Anda akan logout dari sistem.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Logout",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit(); // Kirim form logout dengan POST
+            }
+        });
     }
-  </script>
+</script>
+
 
 </body>
 

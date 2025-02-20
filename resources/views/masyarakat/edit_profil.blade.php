@@ -31,6 +31,29 @@
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  @if(session('success'))
+<script>
+    Swal.fire({
+        title: "Berhasil!",
+        text: "{{ session('success') }}",
+        icon: "success",
+        confirmButtonText: "OK"
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        title: "Gagal!",
+        text: "{{ session('error') }}",
+        icon: "error",
+        confirmButtonText: "OK"
+    });
+</script>
+@endif
+
+
 </head>
 
 <body class="home-page" style="background-color: #FFF0DC;">
@@ -68,46 +91,56 @@
       <!-- Profil Masyarakat -->
       <div class="bg-white shadow rounded-xl p-8">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Profil Masyarakat</h2>
-        <form action="#" method="POST" class="space-y-4">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        <form action="{{ route('profil.update') }}" method="POST" class="space-y-4">
+            @csrf
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-gray-700">NIK</label>
-              <input type="text" name="nik" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('nik') }}">
+              <input type="text" name="nik" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ Auth::user()->nik }}" readonly>
             </div>
             <div>
               <label class="block text-gray-700">Nama Lengkap</label>
-              <input type="text" name="nama_masyarakat" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('nama_masyarakat') }}">
+              <input type="text" name="nama_masyarakat" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('nama_masyarakat', Auth::user()->nama_masyarakat) }}">
             </div>
           </div>
 
           <div>
             <label class="block text-gray-700">Alamat</label>
-            <input type="text" name="alamat" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('alamat') }}">
+            <input type="text" name="alamat" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('alamat', Auth::user()->alamat) }}">
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-gray-700">Tanggal Lahir</label>
-              <input type="date" name="tgl_lahir" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('tgl_lahir') }}">
+              <input type="date" name="tgl_lahir" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('tgl_lahir', Auth::user()->tgl_lahir) }}">
             </div>
             <div>
               <label class="block text-gray-700">Jenis Kelamin</label>
-              <select class="w-full border border-gray-400 rounded px-3 py-2" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
+              <select class="w-full border border-gray-400 rounded px-3 py-2" name="jenis_kelamin">
                 <option selected disabled>Pilih Jenis Kelamin</option>
-                <option>Laki-laki</option>
-                <option>Perempuan</option>
+                <option value="laki-laki" {{ Auth::user()->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                <option value="perempuan" {{ Auth::user()->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                <option value="lainnya" {{ Auth::user()->jenis_kelamin == 'lainnya' ? 'selected' : '' }}>lainnya</option>
               </select>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-gray-700">No. Telp Aktif</label>
-              <input type="text" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('tlp') }}">
+              <input type="text" name="tlp" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('tlp', Auth::user()->tlp) }}">
             </div>
             <div>
               <label class="block text-gray-700">Email</label>
-              <input type="email" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('email') }}">
+              <input type="email" name="email" class="w-full border border-gray-400 rounded px-3 py-2" value="{{ old('email', Auth::user()->email) }}">
             </div>
+          </div>
+
+          <div>
+              <label class="block text-gray-700">Password (Opsional)</label>
+              <input type="password" name="password" class="w-full border border-gray-400 rounded px-3 py-2" placeholder="Isi jika Anda ingin mengubah kata sandi">
           </div>
 
           <div class="flex justify-end">

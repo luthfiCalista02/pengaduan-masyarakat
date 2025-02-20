@@ -65,37 +65,37 @@
         <div class="grid grid-cols-2 gap-6 text-gray-700">
             <div>
             <p class="font-semibold">NIK</p>
-            <p class="bg-gray-100 p-3 rounded-lg">1234567890123456</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->nik }}</p>
             </div>
 
             <div>
             <p class="font-semibold">Nama Lengkap</p>
-            <p class="bg-gray-100 p-3 rounded-lg">Budi Santoso</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->nama_masyarakat }}</p>
             </div>
 
             <div>
             <p class="font-semibold">Alamat</p>
-            <p class="bg-gray-100 p-3 rounded-lg">Jl. Mawar No. 10, Jakarta</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->alamat }}</p>
             </div>
 
             <div>
             <p class="font-semibold">Tanggal Lahir</p>
-            <p class="bg-gray-100 p-3 rounded-lg">12 Januari 1995</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->tgl_lahir }}</p>
             </div>
 
             <div>
             <p class="font-semibold">Jenis Kelamin</p>
-            <p class="bg-gray-100 p-3 rounded-lg">Laki-laki</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->jenis_kelamin }}</p>
             </div>
 
             <div>
             <p class="font-semibold">No Telp Aktif</p>
-            <p class="bg-gray-100 p-3 rounded-lg">0812-3456-7890</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->tlp }}</p>
             </div>
 
             <div>
             <p class="font-semibold">Email</p>
-            <p class="bg-gray-100 p-3 rounded-lg">budi@email.com</p>
+            <p class="bg-gray-100 p-3 rounded-lg">{{ Auth::user()->email }}</p>
             </div>
         </div>
 

@@ -23,17 +23,13 @@
     <!-- Form Container -->
     <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md" style="background-color: #FFF0DC;">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Masuk</h2>
-      <form action="#" method="POST" class="space-y-4">
+      <form action="{{ route('login.post') }}" method="POST" class="space-y-4">
         @csrf
-        <div>
-          <label for="login" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-          <input type="text" id="login" name="nama_masyarakat" placeholder="Masukkan Nama Lengkap" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-        </div>
 
         <!-- Email / No. Telp / Username -->
         <div>
-            <label for="login" class="block text-sm font-medium text-gray-700">NIK</label>
-            <input type="number" id="login" name="nik" placeholder="Masukkan NIK" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <label for="login" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="text" id="login" name="email" placeholder="Masukkan Email" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Kata Sandi -->
@@ -43,7 +39,7 @@
         </div>
 
         <!-- Submit Button -->
-        <a href="{{ route('beranda_masyarakat') }}" type="submit" class="w-full text-white p-2 rounded-md font-medium mt-5 block text-center" style="background-color: #435585;">Masuk</a>
+        <button type="submit" class="w-full text-white p-2 rounded-md font-medium mt-5 block text-center" style="background-color: #435585;">Masuk</button>
       </form>
 
       <!-- Link to Register -->

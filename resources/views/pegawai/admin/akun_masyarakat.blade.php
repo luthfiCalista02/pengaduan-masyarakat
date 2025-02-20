@@ -72,9 +72,15 @@
         </li>
       </ul>
     </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a href="#" onclick="confirmLogout()" class="btn w-100 btn-getstarted" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
+            <a href="#" onclick="event.preventDefault(); confirmLogout();"
+                class="btn w-100 btn-getstarted"
+                type="button"
+                style="background-color: #FFF0DC; color: #435585;">
                 <i class="material-symbols-rounded" style="color: #435585;">logout</i>
                 Keluar
             </a>
@@ -109,50 +115,64 @@
         </div>
       </nav>
     <!-- End Navbar -->
+
+    <!-- Content -->
     <div class="container-fluid py-2">
         <div class="row">
-          <div class="col-12">
-            <div class="card my-4">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="shadow-dark border-radius-lg pt-4 pb-3" style="background-color: #435585;">
-                  <h6 class="text-white text-capitalize ps-3">Tabel Akun Masyarakat</h6>
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="shadow-dark border-radius-lg pt-4 pb-3" style="background-color: #435585;">
+                            <h6 class="text-white text-capitalize ps-3">Tabel Akun Masyarakat</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama Masyarakat</th>
+                                        <th>NIK</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($user->isEmpty())
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-3">
+                                                Belum ada data masyarakat.
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($user as $index => $item)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $item->nama_masyarakat }}</td>
+                                                <td>{{ $item->nik }}</td>
+                                                <td>
+                                                    <a href="{{ route('detail_akun_masyarakat', $item->nik) }}" class="btn btn-info btn-sm">Detail</a>
+
+                                                    <form id="delete-form-{{ $item->nik }}" action="{{ route('masyarakat.destroy', $item->nik) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+
+                                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->nik }})">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Nama Masyarakat</th>
-                            <th>NIK</th>
-                            <th>Aksi</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($masyarakat as $index => $item)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->nama_masyarakat }}</td>
-                                <td>{{ $item->nik }}</td>
-                                <td>
-                                    <a href="{{ route('detail_akun_masyarakat', $item->nik) }}" class="btn btn-info btn-sm">Detail</a>
-                                    <form id="delete-form-1" action="{{ route('akun.hapus', 1) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete(1)">Hapus</button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
     </div>
+    <!-- End Content -->
+
   </main>
   <!--   Core JS Files   -->
   <script src="assetss/assets/js/core/popper.min.js"></script>
@@ -409,53 +429,56 @@
 
   <script>
     function confirmLogout() {
-      Swal.fire({
-        title: "Yakin ingin keluar?",
-        text: "Anda akan logout dari sistem.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Ya, Logout",
-        cancelButtonText: "Batal"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "{{ route('logout') }}"; // Ganti dengan route logout yang benar
-        }
-      });
+        Swal.fire({
+            title: "Yakin ingin keluar?",
+            text: "Anda akan logout dari sistem.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Logout",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit(); // Kirim form logout dengan POST
+            }
+        });
     }
-  </script>
+</script>
+
 
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-  function confirmDelete(index) {
-      Swal.fire({
-          title: "Apakah Anda yakin?",
-          text: "Akun yang dihapus tidak bisa dikembalikan!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Ya, Hapus",
-      }).then((result) => {
-          if (result.isConfirmed) {
-              document.getElementById('delete-form-' + index).submit();
-          }
-      });
-  }
+    function confirmDelete(nik) {
+        Swal.fire({
+            title: "Apakah kamu yakin?",
+            text: "Akun masyarakat ini akan dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("{{ url('/masyarakat') }}/" + nik, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire("Berhasil!", data.success, "success").then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    }
   </script>
-
-  @if(session('success'))
-  <script>
-  Swal.fire({
-      title: "Berhasil!",
-      text: "{{ session('success') }}",
-      icon: "success",
-      confirmButtonText: "OK"
-  });
-  </script>
-  @endif
 
 </body>
 

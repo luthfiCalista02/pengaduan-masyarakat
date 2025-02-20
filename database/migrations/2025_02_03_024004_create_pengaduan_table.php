@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id('id_pengaduan');
             $table->string('nama_masyarakat');
-            $table->string('nik')->unique();
+            $table->string('nik');
             $table->string('judul_pengaduan');
             $table->text('isi_pengaduan');
             $table->date('waktu');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign key untuk nik
-            $table->foreign('nik')->references('nik')->on('masyarakat')->onDelete('cascade');
+            $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
         });
     }
 

@@ -72,9 +72,15 @@
         </li>
       </ul>
     </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a href="#" onclick="confirmLogout()" class="btn w-100 btn-getstarted" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
+            <a href="#" onclick="event.preventDefault(); confirmLogout();"
+                class="btn w-100 btn-getstarted"
+                type="button"
+                style="background-color: #FFF0DC; color: #435585;">
                 <i class="material-symbols-rounded" style="color: #435585;">logout</i>
                 Keluar
             </a>
@@ -431,22 +437,23 @@
 
   <script>
     function confirmLogout() {
-      Swal.fire({
-        title: "Yakin ingin keluar?",
-        text: "Anda akan logout dari sistem.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Ya, Logout",
-        cancelButtonText: "Batal"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "{{ route('logout') }}"; // Ganti dengan route logout yang benar
-        }
-      });
+        Swal.fire({
+            title: "Yakin ingin keluar?",
+            text: "Anda akan logout dari sistem.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Logout",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit(); // Kirim form logout dengan POST
+            }
+        });
     }
-  </script>
+</script>
+
 
 </body>
 

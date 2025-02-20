@@ -7,6 +7,7 @@
   <title>Pengaduan Masyarakat</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Favicons -->
@@ -72,46 +73,52 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pengaduan as $index => $item)
+                    @if ($pengaduan->isEmpty())
                         <tr>
-                            <td class="border border-gray-300 px-4 py-2">{{ $index + 1 }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $item->judul_pengaduan }}</td>
-                            <td class="border border-gray-300 px-4 py-2">
-                                <span class="px-2 py-1 text-sm rounded
-                                    {{ $item->status == 'Menunggu' ? 'bg-yellow-500 text-white' :
-                                       ($item->status == 'Proses' ? 'bg-blue-500 text-white' :
-                                       ($item->status == 'Ditolak' ? 'bg-red-500 text-white' : 'bg-green-500 text-white')) }}">
-                                    {{ $item->status }}
-                                </span>
-                            </td>
-                            <td class="border border-gray-300 px-4 py-2">
-                                <!-- Tombol Detail (Hanya jika status BUKAN "Ditolak") -->
-                                @if ($item->status != 'Ditolak')
-                                    <a href="{{ route('detail_riwayat', ['id_pengaduan' => $item->id_pengaduan]) }}"
-                                        class="bg-green-500 text-white px-3 py-1 rounded">
-                                        Detail
-                                    </a>
-                                @endif
-
-                                <!-- Tombol Hapus (Muncul untuk status "Menunggu" dan "Ditolak") -->
-                                @if ($item->status == 'Menunggu' || $item->status == 'Ditolak')
-                                    <form action="{{ route('hapus_pengaduan', ['id_pengaduan' => $item->id_pengaduan]) }}" method="POST" class="inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded"
-                                            onclick="return confirm('Yakin ingin menghapus pengaduan ini?')">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                @endif
+                            <td colspan="4" class="text-center text-gray-500 py-4">
+                                Belum ada data pengaduan
                             </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($pengaduan as $index => $item)
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">{{ $index + 1 }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $item->judul_pengaduan }}</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <span class="px-2 py-1 text-sm rounded
+                                        {{ $item->status == 'Menunggu' ? 'bg-yellow-500 text-white' :
+                                           ($item->status == 'Proses' ? 'bg-blue-500 text-white' :
+                                           ($item->status == 'Ditolak' ? 'bg-red-500 text-white' : 'bg-green-500 text-white')) }}">
+                                        {{ $item->status }}
+                                    </span>
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    @if ($item->status != 'Ditolak')
+                                        <a href="{{ route('detail_riwayat', ['id_pengaduan' => $item->id_pengaduan]) }}"
+                                           class="bg-pink-500 text-white px-3 py-1 rounded">
+                                            Detail
+                                        </a>
+                                    @endif
+
+                                    @if ($item->status == 'Menunggu' || $item->status == 'Ditolak')
+                                    <form id="delete-form-{{ $item->id_pengaduan }}" action="{{ route('pengaduan.destroy', $item->id_pengaduan) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+
+                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id_pengaduan }})">Hapus</button>
+
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
     </div>
   </main>
+
 
   <footer id="footer" class="footer" style="background-color: #435585; color: #FFF0DC;">
 
@@ -180,11 +187,35 @@
         }
       </script>
 
-      <script>
-    function confirmDelete(event) {
-        if (!confirm('Yakin ingin menghapus pengaduan ini?')) {
-            event.preventDefault();
-        }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(id_pengaduan) {
+        Swal.fire({
+            title: "Apakah kamu yakin?",
+            text: "Pengaduan ini akan dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("{{ url('/pengaduan') }}/" + id_pengaduan, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire("Berhasil!", data.success, "success").then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
     }
 </script>
 

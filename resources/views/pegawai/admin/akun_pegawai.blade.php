@@ -72,9 +72,15 @@
         </li>
       </ul>
     </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a href="#" onclick="confirmLogout()" class="btn w-100 btn-getstarted" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
+            <a href="#" onclick="event.preventDefault(); confirmLogout();"
+                class="btn w-100 btn-getstarted"
+                type="button"
+                style="background-color: #FFF0DC; color: #435585;">
                 <i class="material-symbols-rounded" style="color: #435585;">logout</i>
                 Keluar
             </a>
@@ -144,11 +150,13 @@
                                     <td>{{ $item->level }}</td>
                                     <td>
                                         <a href="{{ route('edit_akun_pegawai', $item->id_pegawai) }}" class="btn btn-success btn-sm">Edit</a>
-                                        <form id="delete-form-1" action="{{ route('akun.hapus', 1) }}" method="POST" style="display: none;">
+
+                                        <form id="delete-form-{{ $item->id_pegawai }}" action="{{ route('pegawai.destroy', $item->id_pegawai) }}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete(1)">Hapus</button>
+
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id_pegawai }})">Hapus</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -417,53 +425,56 @@
 
   <script>
     function confirmLogout() {
-      Swal.fire({
-        title: "Yakin ingin keluar?",
-        text: "Anda akan logout dari sistem.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Ya, Logout",
-        cancelButtonText: "Batal"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "{{ route('logout') }}"; // Ganti dengan route logout yang benar
-        }
-      });
+        Swal.fire({
+            title: "Yakin ingin keluar?",
+            text: "Anda akan logout dari sistem.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Logout",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit(); // Kirim form logout dengan POST
+            }
+        });
     }
-  </script>
+</script>
+
 
   <!-- Sweet Alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-  function confirmDelete(index) {
-      Swal.fire({
-          title: "Apakah Anda yakin?",
-          text: "Akun yang dihapus tidak bisa dikembalikan!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Ya, Hapus",
-      }).then((result) => {
-          if (result.isConfirmed) {
-              document.getElementById('delete-form-' + index).submit();
-          }
-      });
-  }
+    function confirmDelete(id_pegawai) {
+        Swal.fire({
+            title: "Apakah kamu yakin?",
+            text: "Akun pegawai ini akan dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("{{ url('/pegawai') }}/" + id_pegawai, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire("Berhasil!", data.success, "success").then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    }
   </script>
-
-  @if(session('success'))
-  <script>
-  Swal.fire({
-      title: "Berhasil!",
-      text: "{{ session('success') }}",
-      icon: "success",
-      confirmButtonText: "OK"
-  });
-  </script>
-  @endif
 
 </body>
 

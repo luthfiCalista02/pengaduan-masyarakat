@@ -12,20 +12,21 @@ Route::get('/register', [HomeController::class, 'register'])->name('register');
 Route::post('/prosesdaftar', [HomeController::class, 'prosesdaftar'])->name('register.post');
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');
-
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
-Route::middleware(['auth'])->group(function () {
-    Route::delete('/hapus-akun/{id}', [AuthController::class, 'destroy_acc'])->name('akun.hapus');
-});
+Route::post('/proseslogin', [HomeController::class, 'proseslogin'])->name('login.post');
+Route::post('/logout', [HomeController::class, 'proseslogout'])->name('logout');
 
 // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat
 Route::get('/', [MasyarakatController::class, 'page_landing'])->name('page_landing');
+
+
 Route::get('/beranda_masyarakat', [MasyarakatController::class, 'beranda_masyarakat'])->name('beranda_masyarakat');
 Route::post('/prosespengaduan', [MasyarakatController::class, 'prosespengaduan'])->name('pengaduan.post');
 Route::get('/riwayat_masyarakat', [MasyarakatController::class, 'riwayat_masyarakat'])->name('riwayat_masyarakat');
+Route::delete('/pengaduan/{id_pengaduan}', [MasyarakatController::class, 'destroy'])->name('pengaduan.destroy');
 Route::get('/detail_riwayat/{id_pengaduan}', [MasyarakatController::class, 'detail_riwayat'])->name('detail_riwayat');
 Route::get('/profil_masyarakat', [MasyarakatController::class, 'profil_masyarakat'])->name('profil_masyarakat');
 Route::get('/edit_profil', [MasyarakatController::class, 'edit_profil'])->name('edit_profil');
+Route::post('/updateprofil', [MasyarakatController::class, 'updateprofil'])->name('profil.update');
 
 // Pegawai
 
@@ -39,12 +40,14 @@ Route::get('/tambah_akun_pegawai', [PegawaiController::class, 'tambah_akun_pegaw
 Route::post('/tambahpegawai', [PegawaiController::class, 'tambahpegawai'])->name('pegawai.post');
 Route::get('/edit_akun_pegawai/{id_pegawai}', [PegawaiController::class, 'edit_akun_pegawai'])->name('edit_akun_pegawai');
 Route::post('/updatepegawai/{id_pegawai}', [PegawaiController::class, 'updatepegawai'])->name('pegawai.update');
+Route::delete('/pegawai/{id_pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
 // Bagian Masyarakat
 Route::get('/akun_masyarakat', [PegawaiController::class, 'akun_masyarakat'])->name('akun_masyarakat');
 Route::get('/tambah_akun_masyarakat', [PegawaiController::class, 'tambah_akun_masyarakat'])->name('tambah_akun_masyarakat');
 Route::post('/tambahmasyarakat', [PegawaiController::class, 'tambahmasyarakat'])->name('masyarakat.post');
 Route::get('/detail_akun_masyarakat/{nik}', [PegawaiController::class, 'detail_akun_masyarakat'])->name('detail_akun_masyarakat');
+Route::delete('/masyarakat/{nik}', [PegawaiController::class, 'destroy_masyarakat'])->name('masyarakat.destroy');
 
 // Bagian Pengaduan
 Route::get('/tabel_pengaduan', [PegawaiController::class, 'tabel_pengaduan'])->name('tabel_pengaduan');
@@ -53,8 +56,7 @@ Route::get('/otorisasi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'ot
 Route::post('/konfirmasi_otorisasi/{id_pengaduan}', [PegawaiController::class, 'konfirmasi_otorisasi'])->name('konfirmasi_otorisasi');
 Route::get('/tanggapi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'tanggapi_pengaduan'])->name('tanggapi_pengaduan');
 Route::post('/simpan_tanggapan/{id_pengaduan}', [PegawaiController::class, 'simpan_tanggapan'])->name('simpan_tanggapan');
-Route::get('/hapus_pengaduan/{id_pengaduan}', [PegawaiController::class, 'hapus_pengaduan'])->name('hapus_pengaduan');
-
+Route::delete('/pengaduan/{id_pengaduan}', [PegawaiController::class, 'destroy_pengaduan'])->name('pengaduan.destroy');
 
 
 // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas

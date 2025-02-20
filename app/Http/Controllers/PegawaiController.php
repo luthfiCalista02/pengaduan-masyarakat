@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Pegawai;
 use App\Models\Pengaduan;
+use App\Models\Tanggapan;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +16,7 @@ class PegawaiController extends Controller
 
     public function dashboard_admin()
     {
-        $jumlahMasyarakat = Masyarakat::count();
+        $jumlahMasyarakat = User::count();
         $jumlahPegawai = Pegawai::count();
         $jumlahPengaduan = Pengaduan::count();
 
@@ -24,7 +26,7 @@ class PegawaiController extends Controller
     // Bagian Pengaduan
     public function tabel_pengaduan()
     {
-        $pengaduan = Pengaduan::all();
+        $pengaduan = Pengaduan::withTrashed()->get();
         return view('pegawai.admin.tabel_pengaduan', compact('pengaduan'));
     }
 
@@ -68,22 +70,27 @@ class PegawaiController extends Controller
 
         $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
 
-        // Simpan tanggapan
-        $pengaduan->tanggapan = $request->tanggapan;
+        // Simpan ke tabel tanggapan menggunakan guard 'pegawais'
+        Tanggapan::create([
+            'id_pegawai' => auth('pegawais')->user()->id_pegawai, // Ambil id_pegawai dari pegawai yang sedang login
+            'id_pengaduan' => $id_pengaduan,
+            'waktu' => now(), // Waktu tanggapan saat ini
+            'tanggapan' => $request->tanggapan,
+        ]);
 
-        // Ubah status jadi "Selesai"
+        // Ubah status pengaduan menjadi 'Selesai'
         $pengaduan->status = 'Selesai';
         $pengaduan->save();
 
-        return redirect()->route('tabel_pengaduan')->with('success', 'Pengaduan telah ditanggapi dan selesai.');
+        return redirect()->route('tabel_pengaduan')->with('success', 'Tanggapan berhasil disimpan.');
     }
 
-    public function hapus_pengaduan($id_pengaduan)
+    public function destroy_pengaduan($id_pengaduan)
     {
-        $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
-        $pengaduan->delete();
+        $pengaduan = Pengaduan::findOrFail($id_pengaduan);
+        $pengaduan->delete(); // Soft delete
 
-        return redirect()->route('tabel_pengaduan')->back()->with('success', 'Pengaduan berhasil dihapus.');
+        return response()->json(['success' => 'Data pengaduan berhasil dihapus!']);
     }
     // Selesai Bagian Pengaduan
 
@@ -103,20 +110,21 @@ class PegawaiController extends Controller
     public function tambahpegawai(Request $request)
     {
         $request->validate([
-            'nama_pegawai'    => 'required',
-            'email'           => 'required',
-            'level'           => 'required|in:admin,petugas',
-            'password'        => 'required',
+            'nama_pegawai' => 'required',
+            'email'        => 'required|unique:pegawai,email',
+            'level'        => 'required|in:admin,petugas',
+            'password'     => 'required',
+        ], [
+            'email.unique' => 'Email sudah terdaftar!',
         ]);
 
-        $dataPegawai = [
-            'nama_pegawai'      => $request->nama_pegawai,
-            'email'             => $request->email,
-            'level'             => $request->level,
-            'password'          => Hash::make($request->password),
-        ];
+        Pegawai::create([
+            'nama_pegawai' => $request->nama_pegawai,
+            'email'        => $request->email,
+            'level'        => $request->level,
+            'password'     => Hash::make($request->password),
+        ]);
 
-        Pegawai::create($dataPegawai);
         return redirect('/akun_pegawai')->with('success', 'Tambah Akun Pegawai Berhasil!');
     }
 
@@ -130,9 +138,10 @@ class PegawaiController extends Controller
     {
         $request->validate([
             'nama_pegawai' => 'required',
-            'email'        => 'required',
+            'email'        => 'required|unique:pegawai,email,' . $request->id_pegawai . ',id_pegawai',
             'level'        => 'required|in:admin,petugas',
-            'password'     => 'required',
+        ], [
+            'email.unique' => 'Email sudah terdaftar!',
         ]);
 
         $pegawai = Pegawai::findOrFail($request->id_pegawai);
@@ -140,36 +149,44 @@ class PegawaiController extends Controller
             'nama_pegawai' => $request->nama_pegawai,
             'email'        => $request->email,
             'level'        => $request->level,
-            'password'     => Hash::make($request->password),
+            'password'     => $request->password ? Hash::make($request->password) : $pegawai->password,
         ]);
 
         return redirect('/akun_pegawai')->with('success', 'Akun Pegawai Berhasil Diperbarui!');
+    }
+
+    public function destroy($id_pegawai)
+    {
+        $pegawai = Pegawai::findOrFail($id_pegawai);
+        $pegawai->delete(); // Soft delete
+
+        return response()->json(['success' => 'Akun pegawai berhasil dihapus!']);
     }
     // Selesai Bagian Pegawai
 
     // Bagian Masyarakat
     public function akun_masyarakat()
     {
-        $masyarakat = Masyarakat::all();
-        return view('pegawai.admin.akun_masyarakat', compact('masyarakat'));
+        $user = User::all();
+        return view('pegawai.admin.akun_masyarakat', compact('user'));
     }
 
     public function detail_akun_masyarakat($nik)
     {
-        $masyarakat = Masyarakat::where('nik', $nik)->first();
+        $user = User::where('nik', $nik)->first();
 
-        if (!$masyarakat) {
+        if (!$user) {
             return abort(404, 'Akun masyarakat tidak ditemukan');
         }
 
-        return view('pegawai.admin.detail_akun_masyarakat', compact('masyarakat'));
+        return view('pegawai.admin.detail_akun_masyarakat', compact('user'));
     }
 
 
     public function tambah_akun_masyarakat()
     {
-        $masyarakat = Masyarakat::all();
-        return view('pegawai.admin.tambah_akun_masyarakat', compact('masyarakat'));
+        $user = User::all();
+        return view('pegawai.admin.tambah_akun_masyarakat', compact('user'));
     }
 
     public function tambahmasyarakat(Request $request) {
@@ -179,12 +196,16 @@ class PegawaiController extends Controller
             'alamat'          => 'required',
             'tgl_lahir'       => 'required',
             'jenis_kelamin'   => 'required',
-            'tlp'             => 'required',
-            'email'           => 'required',
+            'tlp'             => 'required|unique:masyarakat,tlp',
+            'email'           => 'required|unique:masyarakat,email',
             'password'        => 'required',
+        ], [
+            'nik.unique'   => 'NIK sudah terdaftar!',
+            'email.unique' => 'Email sudah terdaftar!',
+            'tlp.unique'   => 'Nomor telepon sudah terdaftar!',
         ]);
 
-        $dataMasyarakat = [
+        $dataUser = [
             'nik'               => $request->nik,
             'nama_masyarakat'   => $request->nama_masyarakat,
             'alamat'            => $request->alamat,
@@ -195,9 +216,19 @@ class PegawaiController extends Controller
             'password'          => Hash::make($request->password),
         ];
 
-        Masyarakat::create($dataMasyarakat);
+        User::create($dataUser);
+
         return redirect('/akun_masyarakat')->with('success', 'Tambah Akun Masyarakat Berhasil!');
     }
+
+    public function destroy_masyarakat($nik)
+    {
+        $user = User::findOrFail($nik);
+        $user->delete(); // Soft delete
+
+        return response()->json(['success' => 'Akun masyarakat berhasil dihapus!']);
+    }
+
     // Selesai Bagian Masyarakat
 
     public function generate_laporan()

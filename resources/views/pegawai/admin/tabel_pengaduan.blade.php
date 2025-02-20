@@ -72,9 +72,15 @@
         </li>
       </ul>
     </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a href="#" onclick="confirmLogout()" class="btn w-100 btn-getstarted" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button" style="background-color: #FFF0DC; color: #435585;">
+            <a href="#" onclick="event.preventDefault(); confirmLogout();"
+                class="btn w-100 btn-getstarted"
+                type="button"
+                style="background-color: #FFF0DC; color: #435585;">
                 <i class="material-symbols-rounded" style="color: #435585;">logout</i>
                 Keluar
             </a>
@@ -134,19 +140,27 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->judul_pengaduan }}</td>
-                                        <td><span class="badge bg-danger">{{ $item->status }}</span></td>
+                                        <td>
+                                            <span class="badge
+                                                {{ $item->status == 'Menunggu' ? 'bg-warning' :
+                                                   ($item->status == 'Proses' ? 'bg-info' :
+                                                   ($item->status == 'Selesai' ? 'bg-success' : 'bg-danger')) }}">
+                                                {{ $item->status }}
+                                            </span>
+                                        </td>
                                         <td>
                                             @if ($item->status == 'Menunggu')
-                                                <a href="{{ route('otorisasi_pengaduan', $item->id_pengaduan) }}" class="btn btn-info btn-sm">Otorisasi</a>
+                                                <a href="{{ route('otorisasi_pengaduan', $item->id_pengaduan) }}" class="btn btn-primary btn-sm">Otorisasi</a>
                                             @elseif ($item->status == 'Proses')
-                                                <a href="{{ route('tanggapi_pengaduan', $item->id_pengaduan) }}" class="btn btn-warning btn-sm">Tanggapi</a>
+                                                <a href="{{ route('tanggapi_pengaduan', $item->id_pengaduan) }}" class="btn btn-success btn-sm">Tanggapi</a>
                                             @elseif ($item->status == 'Selesai' || $item->status == 'Ditolak')
                                                 <a href="{{ route('detail_pengaduan', $item->id_pengaduan) }}" class="btn btn-info btn-sm">Detail</a>
-                                                <form action="{{ route('hapus_pengaduan', $item->id_pengaduan) }}" method="POST" class="d-inline">
+                                                <form id="delete-form-{{ $item->id_pengaduan }}" action="{{ route('pengaduan.destroy', $item->id_pengaduan) }}" method="POST" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pengaduan ini?')">Hapus</button>
                                                 </form>
+
+                                                <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id_pengaduan }})">Hapus</button>
                                             @endif
                                         </td>
                                     </tr>
@@ -416,22 +430,55 @@
 
   <script>
     function confirmLogout() {
-      Swal.fire({
-        title: "Yakin ingin keluar?",
-        text: "Anda akan logout dari sistem.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Ya, Logout",
-        cancelButtonText: "Batal"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "{{ route('logout') }}"; // Ganti dengan route logout yang benar
-        }
-      });
+        Swal.fire({
+            title: "Yakin ingin keluar?",
+            text: "Anda akan logout dari sistem.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Logout",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit(); // Kirim form logout dengan POST
+            }
+        });
     }
-  </script>
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function confirmDelete(id_pengaduan) {
+      Swal.fire({
+          title: "Apakah kamu yakin?",
+          text: "Data pengaduan ini akan dihapus!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Ya, hapus!",
+          cancelButtonText: "Batal"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              fetch("{{ url('/pengaduan') }}/" + id_pengaduan, {
+                  method: "DELETE",
+                  headers: {
+                      "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                  }
+              })
+              .then(response => response.json())
+              .then(data => {
+                  Swal.fire("Berhasil!", data.success, "success").then(() => {
+                      location.reload();
+                  });
+              })
+              .catch(error => console.error("Error:", error));
+          }
+      });
+  }
+</script>
 
 </body>
 
