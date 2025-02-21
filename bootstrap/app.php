@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\PegawaiMiddleware;
+use App\Http\Middleware\RedirectBasedOnRole;
+use App\Http\Middleware\MasyarakatMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\RedirectBasedOnRole;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,8 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Daftarkan Middleware di sini
-        $middleware->append(RedirectBasedOnRole::class);
+        // 
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
