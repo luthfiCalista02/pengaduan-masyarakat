@@ -6,6 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Pengaduan Masyarakat</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif
+
 </head>
 
 <body class="login-page mt-5 mb-5" style="background-color: #435585;">
@@ -23,19 +36,26 @@
     <!-- Form Container -->
     <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md" style="background-color: #FFF0DC;">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Masuk</h2>
+        @if (session('error'))
+            <div class="bg-red-500 text-white p-3 rounded-md mb-4 text-center">
+                {{ session('error') }}
+            </div>
+        @endif
       <form action="{{ route('login.post') }}" method="POST" class="space-y-4">
         @csrf
 
         <!-- Email / No. Telp / Username -->
         <div>
             <label for="login" class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="text" id="login" name="email" placeholder="Masukkan Email" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <input type="text" id="login" name="email" placeholder="Masukkan Email" required value="{{ old('email') }}"
+              class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Kata Sandi -->
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-          <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi" required
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
         <!-- Submit Button -->

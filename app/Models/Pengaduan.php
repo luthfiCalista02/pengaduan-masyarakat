@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pengaduan extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $table = 'pengaduan';
     protected $primaryKey = 'id_pengaduan';
-    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'id_pengaduan',

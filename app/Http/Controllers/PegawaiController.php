@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\User;
 use App\Models\Pegawai;
 use App\Models\Pengaduan;
@@ -26,7 +27,7 @@ class PegawaiController extends Controller
     // Bagian Pengaduan
     public function tabel_pengaduan()
     {
-        $pengaduan = Pengaduan::withTrashed()->get();
+        $pengaduan = Pengaduan::all();
         return view('pegawai.admin.tabel_pengaduan', compact('pengaduan'));
     }
 
@@ -236,6 +237,28 @@ class PegawaiController extends Controller
         return view('pegawai.admin.generate_laporan');
     }
 
+    public function cetak_laporan(Request $request)
+    {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $status = $request->status;
+
+        // Ambil data pengaduan berdasarkan filter
+        $query = Pengaduan::whereYear('waktu', $tahun)->whereMonth('waktu', $bulan);
+
+        if ($status != 'semua') {
+            $query->where('status', $status);
+        }
+
+        $pengaduan = $query->get();
+
+        // Load view dan generate PDF
+        $pdf = Pdf::loadView('pegawai.admin.laporan_pdf', compact('pengaduan', 'bulan', 'tahun', 'status'));
+
+        return $pdf->download('laporan_pengaduan.pdf');
+    }
+
+
 
     // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas
 
@@ -292,15 +315,21 @@ class PegawaiController extends Controller
 
         $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
 
-        // Simpan tanggapan
-        $pengaduan->tanggapan = $request->tanggapan;
+        // Simpan ke tabel tanggapan menggunakan guard 'pegawais'
+        Tanggapan::create([
+            'id_pegawai' => auth('pegawais')->user()->id_pegawai, // Ambil id_pegawai dari pegawai yang sedang login
+            'id_pengaduan' => $id_pengaduan,
+            'waktu' => now(), // Waktu tanggapan saat ini
+            'tanggapan' => $request->tanggapan,
+        ]);
 
-        // Ubah status jadi "Selesai"
+        // Ubah status pengaduan menjadi 'Selesai'
         $pengaduan->status = 'Selesai';
         $pengaduan->save();
 
-        return redirect()->route('petugas_tabel_pengaduan')->with('success', 'Pengaduan telah ditanggapi dan selesai.');
+        return redirect()->route('tabel_pengaduan')->with('success', 'Tanggapan berhasil disimpan.');
     }
+
 
     public function petugas_hapus_pengaduan($id_pengaduan)
     {

@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Models\Pegawai;
 use App\Models\Pengaduan;
 use App\Models\Masyarakat;
+use App\Models\Tanggapan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class MasyarakatController extends Controller
 {
@@ -25,7 +27,9 @@ class MasyarakatController extends Controller
     public function beranda_masyarakat()
     {
         $pengaduan = Pengaduan::all();
-        return view('masyarakat.beranda_masyarakat', compact('pengaduan'));
+        $nik = Auth::user()->nik;
+        $nama = Auth::user()->nama_masyarakat;
+        return view('masyarakat.beranda_masyarakat', compact('pengaduan', 'nik', 'nama'));
     }
 
     public function prosespengaduan(Request $request) {
@@ -70,23 +74,37 @@ class MasyarakatController extends Controller
         $nik = Auth::user()->nik;
 
         // Ambil data pengaduan hanya yang dibuat oleh user yang login
-        $pengaduan = Pengaduan::withTrashed()->where('nik', $nik)->get();
+        $pengaduan = Pengaduan::where('nik', $nik)->get();
 
         return view('masyarakat.riwayat_masyarakat', compact('pengaduan'));
     }
 
-    public function destroy($id_pengaduan)
+    public function destroy(Pengaduan $id_pengaduan)
     {
-        $pengaduan = Pengaduan::findOrFail($id_pengaduan);
-        $pengaduan->delete(); // Soft delete
+        $pengaduan = Pengaduan::find($id_pengaduan);
 
-        return response()->json(['success' => 'Pengaduan berhasil dihapus!']);
+        if (!$pengaduan) {
+            return response()->json(['error' => 'Pengaduan tidak ditemukan!'], 404);
+        }
+
+        // Tambahkan log untuk debugging
+        Log::info('Menghapus pengaduan: ' . $id_pengaduan);
+
+        $pengaduan->forceDelete(); // Hapus permanen dari database
+
+        return response()->json(['success' => 'Pengaduan berhasil dihapus secara permanen!']);
     }
+
+
 
     public function detail_riwayat($id_pengaduan)
     {
         $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
-        return view('masyarakat.detail_riwayat', compact('pengaduan'));
+
+        // Cari tanggapan berdasarkan id_pengaduan
+        $tanggapan = Tanggapan::where('id_pengaduan', $id_pengaduan)->first();
+
+        return view('masyarakat.detail_riwayat', compact('pengaduan', 'tanggapan'));
     }
 
     public function profil_masyarakat()

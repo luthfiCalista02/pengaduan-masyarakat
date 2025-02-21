@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Masyarakat;
 use App\Models\User;
+use App\Models\Pegawai;
+use App\Models\Masyarakat;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,8 +25,11 @@ class HomeController extends Controller
             'tgl_lahir'       => 'required',
             'jenis_kelamin'   => 'required',
             'tlp'             => 'required',
-            'email'           => 'required',
+            'email'           => 'required|email|unique:users,email',
             'password'        => 'required',
+        ], [
+            'nik.unique'   => 'NIK sudah terdaftar!',
+            'email.unique' => 'Email sudah terdaftar!',
         ]);
 
         $dataUser = [
@@ -53,32 +57,42 @@ class HomeController extends Controller
     {
         $credentials = ['email' => $request->email, 'password' => $request->password];
 
-        // Cek apakah user adalah masyarakat
-        if (Auth::attempt($credentials)) {
+        // Cek apakah email ada di database
+        $user = User::where('email', $request->email)->first();
+        $pegawai = Pegawai::where('email', $request->email)->first();
+
+        if (!$user && !$pegawai) {
+            return back()->with('error', 'Email salah')->withInput();
+        }
+
+        // Cek login untuk masyarakat
+        if ($user && !Auth::attempt($credentials)) {
+            return back()->with('error', 'Password salah')->withInput();
+        }
+        if ($user) {
             $request->session()->regenerate();
             return redirect('/beranda_masyarakat');
         }
 
-        // Cek apakah user adalah pegawai (admin atau petugas)
-        if (Auth::guard('pegawais')->attempt($credentials)) {
+        // Cek login untuk pegawai
+        if ($pegawai && !Auth::guard('pegawais')->attempt($credentials)) {
+            return back()->with('error', 'Password salah')->withInput();
+        }
+        if ($pegawai) {
             $pegawai = Auth::guard('pegawais')->user();
-
-            // Set sesi level pegawai
             session(['level' => $pegawai->level]);
             $request->session()->regenerate();
 
-            // Redirect sesuai level
             if ($pegawai->level === 'petugas') {
                 return redirect('/dashboard_petugas');
             } elseif ($pegawai->level === 'admin') {
                 return redirect('/dashboard_admin');
             }
 
-            return redirect('/'); // Redirect default jika level tidak dikenali
+            return redirect('/');
         }
 
-        // Jika login gagal
-        return back()->withErrors(['login' => 'Email atau password salah'])->withInput();
+        return back()->with('error', 'Terjadi kesalahan, silakan coba lagi.');
     }
 
     public function proseslogout(Request $request)

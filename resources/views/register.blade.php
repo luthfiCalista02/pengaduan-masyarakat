@@ -28,40 +28,52 @@
         <p>{{ Session::get('warning') }}</p>
       </div>
       @endif
+      @if ($errors->any())
+            <div class="bg-red-500 text-white p-3 rounded-md mb-4">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
       <form action="{{ route('register.post') }}" method="POST" class="space-y-4">
         @csrf
 
         <!-- NIK -->
         <div>
           <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-          <input type="text" id="nik" name="nik" placeholder="Masukkan NIK" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <input type="number" id="nik" name="nik" placeholder="Masukkan NIK" required value="{{ old('nik') }}"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
         </div>
 
         <!-- Nama Lengkap -->
         <div>
           <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-          <input type="text" id="name" name="nama_masyarakat" placeholder="Masukkan Nama Lengkap" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <input type="text" id="name" name="nama_masyarakat" placeholder="Masukkan Nama Lengkap" required value="{{ old('nama_masyarakat') }}"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
         </div>
 
         <!-- Alamat -->
         <div>
           <label for="address" class="block text-sm font-medium text-gray-700">Alamat</label>
-          <input type="text" id="address" name="alamat" placeholder="Masukkan Alamat Saat Ini" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <textarea type="text" id="address" name="alamat" placeholder="Masukkan Alamat Saat Ini" required
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">{{ old('alamat') }}</textarea>
         </div>
 
         <!-- Tanggal Lahir -->
         <div>
           <label for="dob" class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
-          <input type="date" id="dob" name="tgl_lahir" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <input type="date" id="dob" name="tgl_lahir" required value="{{ old('tgl_lahir') }}"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
         </div>
 
         <!-- Jenis Kelamin -->
         <div>
           <label for="gender" class="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-          <select id="gender" name="jenis_kelamin" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <select id="gender" name="jenis_kelamin" required value="{{ old('jenis_kelamin') }}"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             <option value="">Pilih Jenis Kelamin</option>
-            <option value="Laki-laki">Laki-Laki</option>
-            <option value="Perempuan">Perempuan</option>
+            <option value="laki-laki">Laki-Laki</option>
+            <option value="perempuan">Perempuan</option>
             <option value="Lainnya">Lainnya</option>
           </select>
         </div>
@@ -69,13 +81,15 @@
         <!-- Nomor HP -->
         <div>
           <label for="phone" class="block text-sm font-medium text-gray-700">Nomor HP</label>
-          <input type="text" id="phone" name="tlp" placeholder="Min. 8-14 Angka" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <input type="number" id="phone" name="tlp" placeholder="Min. 8-14 Angka" required value="{{ old('tlp') }}"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
         </div>
 
         <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" name="email" placeholder="pengaduan@contoh.com" required class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+          <input type="email" id="email" name="email" placeholder="pengaduan@contoh.com" required value="{{ old('email') }}"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
         </div>
 
         <!-- Kata Sandi -->

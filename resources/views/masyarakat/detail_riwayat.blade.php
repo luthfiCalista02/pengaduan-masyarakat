@@ -65,7 +65,8 @@
             <a href="{{ route('riwayat_masyarakat') }}" class="btn bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 focus:ring-0 focus:outline-none">Kembali</a>
         </div>
 
-        <div class="shadow rounded-xl p-8 w-full max-w-4xl mx-auto bg-white">
+        <!-- Detail -->
+        <div class="shadow rounded-xl p-8 w-full max-w-4xl mx-auto bg-white mb-5">
         <h2 class="text-2xl font-bold text-gray-800 mb-6  text-center" style="color: #435585;">Pengaduan Anda</h2>
 
         <div class="grid grid-cols-1 gap-4">
@@ -106,6 +107,17 @@
             </div>
             </div>
         </div>
+        </div>
+
+        <!-- Tanggapan -->
+        <div class="shadow rounded-xl p-8 w-full max-w-4xl mx-auto bg-white">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6  text-center" style="color: #435585;">Tanggapan</h2>
+
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                <p class="border border-gray-300 px-4 py-2 rounded bg-gray-100">{{ $tanggapan->tanggapan }}</p>
+                </div>
+            </div>
         </div>
     </div>
   </main>

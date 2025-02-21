@@ -132,8 +132,12 @@
                 <div class="d-flex justify-content-between mt-3">
                     <form action="{{ route('konfirmasi_otorisasi', $pengaduan->id_pengaduan) }}" method="POST" class="w-100 d-flex">
                         @csrf
-                        <button type="submit" name="aksi" value="Tolak" class="btn btn-danger">Tolak</button>
-                        <button type="submit" name="aksi" value="Izinkan" class="btn btn-success ms-auto">Izinkan</button>
+                        @if($pengaduan->status !== 'Ditolak' && $pengaduan->status !== 'Selesai')
+                            <button type="submit" name="aksi" value="Tolak" class="btn btn-danger">Tolak</button>
+                        @endif
+                        @if($pengaduan->status === 'Menunggu')
+                            <button type="submit" name="aksi" value="Izinkan" class="btn btn-success ms-auto">Izinkan</button>
+                        @endif
                     </form>
                 </div>
             </div>

@@ -155,12 +155,14 @@
                                                 <a href="{{ route('tanggapi_pengaduan', $item->id_pengaduan) }}" class="btn btn-success btn-sm">Tanggapi</a>
                                             @elseif ($item->status == 'Selesai' || $item->status == 'Ditolak')
                                                 <a href="{{ route('detail_pengaduan', $item->id_pengaduan) }}" class="btn btn-info btn-sm">Detail</a>
-                                                <form id="delete-form-{{ $item->id_pengaduan }}" action="{{ route('pengaduan.destroy', $item->id_pengaduan) }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
 
-                                                <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id_pengaduan }})">Hapus</button>
+                                                @if ($item->status == 'Ditolak')
+                                                    <form id="delete-form-{{ $item->id_pengaduan }}" action="{{ route('pengaduan.destroy', $item->id_pengaduan) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id_pengaduan }})">Hapus</button>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>

@@ -106,59 +106,62 @@
         <div class="card">
             <div class="card-header text-white" style="background-color: #435585;">Generate Laporan</div>
             <div class="card-body">
-                <!-- Pilih Bulan -->
-                <div style="margin-bottom: 15px;">
-                    <label for="bulan" style="display: block; font-weight: bold; margin-bottom: 5px;">Bulan</label>
-                    <select id="bulan"
-                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="" disabled selected>Pilih Bulan</option>
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                    </select>
-                </div>
+                <form action="{{ route('cetak_laporan') }}" method="POST">
+                    @csrf
 
-                <!-- Pilih Tahun -->
-                <div style="margin-bottom: 15px;">
-                    <label for="tahun" style="display: block; font-weight: bold; margin-bottom: 5px;">Tahun</label>
-                    <select id="tahun"
-                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="" disabled selected>Pilih Tahun</option>
-                        <script>
-                            var tahunSekarang = new Date().getFullYear();
-                            for (var i = tahunSekarang; i >= tahunSekarang - 50; i--) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
-                    </select>
-                </div>
+                    <!-- Pilih Bulan -->
+                    <div style="margin-bottom: 15px;">
+                        <label for="bulan" style="display: block; font-weight: bold; margin-bottom: 5px;">Bulan</label>
+                        <select name="bulan" id="bulan" required
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                            <option value="" disabled selected>Pilih Bulan</option>
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                        </select>
+                    </div>
 
-                <!-- Pilih Status -->
-                <div style="margin-bottom: 15px;">
-                    <label for="status" style="display: block; font-weight: bold; margin-bottom: 5px;">Status</label>
-                    <select id="status"
-                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
-                        <option value="" disabled selected>Pilih Status</option>
-                        <option value="semua">Semua</option>
-                        <option value="menunggu">Menunggu</option>
-                        <option value="proses">Proses</option>
-                        <option value="selesai">Selesai</option>
-                    </select>
-                </div>
+                    <!-- Pilih Tahun -->
+                    <div style="margin-bottom: 15px;">
+                        <label for="tahun" style="display: block; font-weight: bold; margin-bottom: 5px;">Tahun</label>
+                        <select name="tahun" id="tahun" required
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                            <option value="" disabled selected>Pilih Tahun</option>
+                            <script>
+                                var tahunSekarang = new Date().getFullYear();
+                                for (var i = tahunSekarang; i >= tahunSekarang - 50; i--) {
+                                    document.write('<option value="' + i + '">' + i + '</option>');
+                                }
+                            </script>
+                        </select>
+                    </div>
 
+                    <!-- Pilih Status -->
+                    <div style="margin-bottom: 15px;">
+                        <label for="status" style="display: block; font-weight: bold; margin-bottom: 5px;">Status</label>
+                        <select name="status" id="status" required
+                                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                            <option value="" disabled selected>Pilih Status</option>
+                            <option value="semua">Semua</option>
+                            <option value="menunggu">Menunggu</option>
+                            <option value="proses">Proses</option>
+                            <option value="selesai">Selesai</option>
+                        </select>
+                    </div>
 
-                <div style="text-align: right;">
-                    <button class="btn btn-info mb-3">Cetak</button>
-                </div>
+                    <div style="text-align: right;">
+                        <button type="submit" class="btn btn-info mb-3">Cetak</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

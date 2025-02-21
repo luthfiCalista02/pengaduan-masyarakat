@@ -13,6 +13,7 @@ Route::post('/prosesdaftar', [HomeController::class, 'prosesdaftar'])->name('reg
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::post('/proseslogin', [HomeController::class, 'proseslogin'])->name('login.post');
+
 Route::post('/logout', [HomeController::class, 'proseslogout'])->name('logout');
 
 // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat // Masyarakat
@@ -32,7 +33,6 @@ Route::post('/updateprofil', [MasyarakatController::class, 'updateprofil'])->nam
 
 // Admin // Admin // Admin // Admin // Admin // Admin // Admin // Admin // Admin // Admin
 Route::get('/dashboard_admin', [PegawaiController::class, 'dashboard_admin'])->name('dashboard_admin');
-Route::get('/generate_laporan', [PegawaiController::class, 'generate_laporan'])->name('generate_laporan');
 
 // Bagian Pegawai
 Route::get('/akun_pegawai', [PegawaiController::class, 'akun_pegawai'])->name('akun_pegawai');
@@ -54,9 +54,15 @@ Route::get('/tabel_pengaduan', [PegawaiController::class, 'tabel_pengaduan'])->n
 Route::get('/detail_pengaduan/{id_pengaduan}', [PegawaiController::class, 'detail_pengaduan'])->name('detail_pengaduan');
 Route::get('/otorisasi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'otorisasi_pengaduan'])->name('otorisasi_pengaduan');
 Route::post('/konfirmasi_otorisasi/{id_pengaduan}', [PegawaiController::class, 'konfirmasi_otorisasi'])->name('konfirmasi_otorisasi');
+Route::delete('/pengaduan/{id_pengaduan}', [PegawaiController::class, 'destroy_pengaduan'])->name('pengaduan.destroy');
+
+// Bagian Tanggapan
 Route::get('/tanggapi_pengaduan/{id_pengaduan}', [PegawaiController::class, 'tanggapi_pengaduan'])->name('tanggapi_pengaduan');
 Route::post('/simpan_tanggapan/{id_pengaduan}', [PegawaiController::class, 'simpan_tanggapan'])->name('simpan_tanggapan');
-Route::delete('/pengaduan/{id_pengaduan}', [PegawaiController::class, 'destroy_pengaduan'])->name('pengaduan.destroy');
+
+// Generate Laporan
+Route::get('/generate_laporan', [PegawaiController::class, 'generate_laporan'])->name('generate_laporan');
+Route::post('/cetak_laporan', [PegawaiController::class, 'cetak_laporan'])->name('cetak_laporan');
 
 
 // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas // Petugas

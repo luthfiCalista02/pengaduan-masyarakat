@@ -142,7 +142,7 @@
 
                     <div style="margin-bottom: 15px;">
                         <label for="nomorTelepon" style="display: block; font-weight: bold; margin-bottom: 5px;">Nomor Telepon</label>
-                        <input type="tel" id="nomorTelepon" name="tlp" placeholder="Masukkan Nomor Telepon"
+                        <input type="number" id="nomorTelepon" name="tlp" placeholder="Masukkan Nomor Telepon"
                             style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: white;" value="{{ old('tlp') }}">
                     </div>
 

@@ -76,49 +76,49 @@
             <!-- Nama Masyarakat -->
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                <input type="text" id="nama_masyarakat" name="nama_masyarakat" placeholder="Masukkan Nama" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+                <input type="text" id="nama_masyarakat" name="nama_masyarakat" value="{{ $nama }}" placeholder="Masukkan Nama" required
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off" readonly>
             </div>
 
             <!-- NIK -->
             <div>
                 <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-                <input type="number" id="nik" name="nik" required minlength="16" maxlength="16" placeholder="Masukkan NIK" required
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
+                <input type="number" id="nik" name="nik" value="{{ $nik }}" required minlength="16" maxlength="16" placeholder="Masukkan NIK" required
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off" readonly>
             </div>
 
             <!-- Judul Pengaduan -->
             <div>
                 <label for="judul" class="block text-sm font-medium text-gray-700">Judul Pengaduan</label>
-                <input type="text" id="judul_pengaduan" name="judul_pengaduan" placeholder="Isi Judul Pengaduan" required
+                <input type="text" id="judul_pengaduan" name="judul_pengaduan" placeholder="Isi Judul Pengaduan" required value="{{ old('judul_pengaduan') }}"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Isi Pengaduan -->
             <div>
                 <label for="isi" class="block text-sm font-medium text-gray-700">Isi Pengaduan</label>
-                <textarea id="isi_pengaduan" name="isi_pengaduan" rows="4" placeholder="Isi Pengaduan Anda" required
+                <textarea id="isi_pengaduan" name="isi_pengaduan" rows="4" placeholder="Isi Pengaduan Anda" required value="{{ old('isi_pengaduan') }}"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off"></textarea>
             </div>
 
             <!-- Waktu Kejadian -->
             <div>
                 <label for="waktu" class="block text-sm font-medium text-gray-700">Waktu Kejadian</label>
-                <input type="datetime-local" id="waktu" name="waktu" required
+                <input type="datetime-local" id="waktu" name="waktu" required value="{{ old('waktu') }}"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Lokasi Kejadian -->
             <div>
                 <label for="lokasi" class="block text-sm font-medium text-gray-700">Lokasi Kejadian</label>
-                <input type="text" id="lokasi" name="lokasi" placeholder="Masukkan Lokasi Kejadian" required
+                <input type="text" id="lokasi" name="lokasi" placeholder="Masukkan Lokasi Kejadian" required value="{{ old('lokasi') }}"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 
             <!-- Lampiran Pengaduan -->
             <div>
                 <label for="lampiran" class="block text-sm font-medium text-gray-700">Lampiran</label>
-                <input type="file" id="foto" name="foto" accept="image/*,application/pdf" required
+                <input type="file" id="foto" name="foto" accept="image/*,application/pdf" required 
                     class="bg-white mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" autocomplete="off">
             </div>
 

@@ -204,16 +204,24 @@
                 fetch("{{ url('/pengaduan') }}/" + id_pengaduan, {
                     method: "DELETE",
                     headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
                     }
                 })
                 .then(response => response.json())
                 .then(data => {
-                    Swal.fire("Berhasil!", data.success, "success").then(() => {
-                        location.reload();
-                    });
+                    if (data.success) {
+                        Swal.fire("Berhasil!", data.success, "success").then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire("Gagal!", data.error, "error");
+                    }
                 })
-                .catch(error => console.error("Error:", error));
+                .catch(error => {
+                    console.error("Error:", error);
+                    Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus.", "error");
+                });
             }
         });
     }
